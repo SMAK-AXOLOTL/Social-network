@@ -1,0 +1,25 @@
+.item {
+    color: black;
+    border: solid 1px black;
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.item img {
+    width: 64px;
+    height: 64px;
+    border-radius: 30px;
+    border: solid 1px black;
+}
+
+.like {
+    background-color: aquamarine;
+    border-radius: 5px;
+    border: solid 1px ;
+}
+
+.dislike {
+    background-color: #ff726f;
+    border-radius: 5px;
+    border: solid 1px ;
+}

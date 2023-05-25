@@ -1,0 +1,10 @@
+.bigPicture {
+    grid-area: bigPic;
+    width: 720px;
+    justify-self: center;
+    align-self: center;
+}
+
+.profile_block {
+    padding: 10px;
+}

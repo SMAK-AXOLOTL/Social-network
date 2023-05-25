@@ -1,0 +1,35 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    border: solid 1px black;
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.dialog_items a {
+    text-decoration: none;
+    color: black;
+}
+
+.dialog_items :hover {
+    background-color: #EAE0C8;
+
+}
+
+.active {
+    color: blue;
+}
+
+.messages {
+    border: solid 1px black;
+    border-radius: 7px;
+    padding: 5px;
+    background-color: #FAEEDD;
+
+}
+
+.messages textarea{
+    resize: none;
+    height: 80px;
+    width: available;
+}

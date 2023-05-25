@@ -1,0 +1,13 @@
+.posts {
+
+}
+
+.textArea {
+    resize: none;
+    height: 80px;
+    width: 250px;
+}
+
+.posts_block {
+    padding: 10px;
+}

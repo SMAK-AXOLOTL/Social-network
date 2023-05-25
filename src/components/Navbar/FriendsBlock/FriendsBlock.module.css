@@ -1,0 +1,7 @@
+.box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: solid 3px #EAE0C8;
+    border-radius: 7px;
+    height: auto;
+}

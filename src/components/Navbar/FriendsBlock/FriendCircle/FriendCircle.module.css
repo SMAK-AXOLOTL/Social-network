@@ -1,0 +1,14 @@
+.item {
+    padding: 1px;
+}
+
+.item img {
+    height: 48px;
+    border: solid 1px;
+    border-radius: 32px;
+}
+
+.item a{
+    text-decoration: none;
+    color: black;
+}

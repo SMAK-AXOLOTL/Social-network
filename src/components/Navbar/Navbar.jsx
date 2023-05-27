@@ -17,7 +17,7 @@ const Navbar = (props) => {
                 <br/>
                 <br/>
             </nav>
-            <FriendsBlock dialogs={props.dialogs}/>
+            {/*<FriendsBlock dialogs={props.dialogs}/>*/}
         </div>
     )
 }

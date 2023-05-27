@@ -1,7 +1,7 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-let initialState =  {
+let initialState = {
     postsData: [
         {id: 1, message: 'I have no mouth, but i have to scream', rating: 20},
         {id: 2, message: 'Am I alone here?', rating: 89},
@@ -19,22 +19,24 @@ let initialState =  {
 }
 
 export const profileReducer = (state = initialState, action) => {
-       switch (action.type) {
+    switch (action.type) {
         case ADD_POST: {
-            let newPost = {
-                id: 6, message: state._newPostText, rating: 0
+            return {
+                ...state,
+                _newPostText: '',
+                postsData: [...state.postsData, {id: 6, message: state._newPostText, rating: 0}]
             }
-            state.postsData.push(newPost)
-            state.setNewPostText('')
-            break;
         }
         case UPDATE_NEW_POST_TEXT: {
-            state._newPostText = action.payload
-            break;
+            return {
+                ...state,
+                _newPostText: action.payload
+            }
         }
-        default:
+        default: {
+            return state
+        }
     }
-    return state
 }
 
 /*const profileReducer = createReducer(initialState, (builder) => {
@@ -51,11 +53,11 @@ export const profileReducer = (state = initialState, action) => {
         })
 })*/
 
-export const addPostActionCreator = () =>({
+export const addPostActionCreator = () => ({
     type: ADD_POST
 })
 
-export const updateNewPostTextActionCreator = (text) =>({
+export const updateNewPostTextActionCreator = (text) => ({
     type: UPDATE_NEW_POST_TEXT,
     payload: text
 })

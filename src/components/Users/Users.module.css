@@ -1,0 +1,12 @@
+.box {
+    display: grid;
+    grid-template-rows: 1fr;
+    border: solid 3px #EAE0C8;
+    border-radius: 7px;
+    height: auto;
+}
+
+.img {
+    height: 50px;
+    width: 50px;
+}

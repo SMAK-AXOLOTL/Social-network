@@ -7,21 +7,11 @@ import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export const rerenderEntireTree = (state) => {
-    root.render(
-        <Provider store={store}>
-            <App
-                state={state}
-                dispatch={store.dispatch.bind(store)}
-                store={store}
-            />
-        </Provider>
-    );
-}
-
-rerenderEntireTree(store.getState())
-
-store.subscribe(() => {
-    let state = store.getState()
-    rerenderEntireTree(state)
-})
+root.render(
+    <Provider store={store}>
+        <App
+            dispatch={store.dispatch.bind(store)}
+            store={store}
+        />
+    </Provider>
+);

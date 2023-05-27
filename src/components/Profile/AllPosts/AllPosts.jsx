@@ -8,7 +8,7 @@ const AllPosts = (props) => {
     let newPostElement = React.createRef()
 
     const onAddPost = () => {
-        if (newPostElement.current.value != ''){
+        if (newPostElement.current.value !== ''){
             props.addPost()
         }
     }

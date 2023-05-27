@@ -1,0 +1,40 @@
+.box {
+    display: grid;
+    grid-template-columns: 1fr 16fr;
+    grid-template-rows: 1fr 1fr;
+    border: solid 3px #EAE0C8;
+    border-radius: 7px;
+    height: auto;
+    align-items: center;
+}
+
+.leftside{
+    
+}
+.leftside button{
+    padding-left: 300px;
+    padding-inline: 10px;
+}
+.rightside{
+    padding-left: 25px;
+}
+
+.fullName{
+
+}
+.status{
+
+}
+.country{
+
+}
+.city{
+
+}
+
+.img {
+    height: 100px;
+    width: 100px;
+    border-radius: 55px;
+    border: solid 3px #EAE0C8;
+}

@@ -8,6 +8,7 @@ import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import MessagesContainer from "./components/Messages/MessagesContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 function App(props) {
@@ -15,7 +16,7 @@ function App(props) {
         <BrowserRouter>
             <div className='app_wrapper'>
                 <Header/>
-                <Navbar dialogs={props.state.dialogsPage.dialogsData}/>
+                <Navbar dialogs={props.store.getState().dialogsPage.dialogsData}/>
                 <div className='app_wrapper_content'>
                     <Routes>
                         <Route path='/messages/*' element={
@@ -30,6 +31,7 @@ function App(props) {
                         }/>
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/news' element={<News/>}/>
+                        <Route path='/users' element={<UsersContainer/>}/>
                         <Route path='/settings' element={<Settings/>}/>
                     </Routes>
                 </div>

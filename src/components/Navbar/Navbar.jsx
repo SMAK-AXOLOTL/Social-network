@@ -11,6 +11,7 @@ const Navbar = (props) => {
                 <NavbarItem address='messages' itemName='Messages'/>
                 <NavbarItem address='news' itemName='News'/>
                 <NavbarItem address='music' itemName='Music'/>
+                <NavbarItem address='users' itemName='Users'/>
                 <br/>
                 <NavbarItem address='settings' itemName='Settings'/>
                 <br/>

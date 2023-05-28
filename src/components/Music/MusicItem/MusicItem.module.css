@@ -1,0 +1,32 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    ". . ."
+    ". c ."
+    ". . .";
+    width: 216px;
+    height: 512px;
+    border: solid 2px #EAE0C8;
+    border-radius: 25px;
+}
+
+.img {
+    height: 160px;
+    width: 160px;
+    border-radius: 25px;
+}
+.content{
+    grid-area: c;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+.name{
+    text-decoration: #EAE0C8 underline;
+    font-weight: bold;
+}

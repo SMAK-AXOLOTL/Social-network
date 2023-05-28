@@ -9,7 +9,7 @@ const Users = (props) => {
                 id: 1,
                 photoUrl: 'https://webmg.ru/wp-content/uploads/2022/10/i-83-98.jpeg',
                 fullName: 'Ivan',
-                status: '',
+                status: 'I\'m having a nice time',
                 location: {city: 'Moscow', country: 'Russia'},
                 isFollowed: false
             },
@@ -17,7 +17,7 @@ const Users = (props) => {
                 id: 2,
                 photoUrl: 'https://webmg.ru/wp-content/uploads/2022/10/i-83-98.jpeg',
                 fullName: 'Misha',
-                status: '',
+                status: 'Hello world!',
                 location: {city: 'St-Petersburg', country: 'Russia'},
                 isFollowed: true
             },
@@ -71,7 +71,7 @@ const Users = (props) => {
             },])
     }
 
-    let usersMapped = props.users.map(u =><UserItem user={u} follow={props.follow} unfollow={props.unfollow}/>)
+    let usersMapped = props.users.map(u => <UserItem key={u.id} user={u} follow={props.follow} unfollow={props.unfollow}/>)
 
     return(
         <div className={s.box}>{usersMapped}</div>

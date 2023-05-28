@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Music from "./components/Music/Music";
+import MusicContainer from "./components/Music/MusicContainer";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import MessagesContainer from "./components/Messages/MessagesContainer";
@@ -29,9 +29,10 @@ function App(props) {
                                 store={props.store}
                             />
                         }/>
-                        <Route path='/music' element={<Music/>}/>
+                        <Route path='/music' element={<MusicContainer/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/users' element={<UsersContainer/>}/>
+                        <Route path='/music' element={<MusicContainer/>}/>
                         <Route path='/settings' element={<Settings/>}/>
                     </Routes>
                 </div>

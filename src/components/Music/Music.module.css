@@ -1,7 +1,10 @@
 .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /*grid-template-rows: 1fr;*/
-    gap: 0px 0px;
-    grid-auto-flow: column;
+    /*grid-template-columns: 1fr;
+    grid-template-rows: 1fr;*/
+    gap: 10px 10px;
+    grid-auto-flow: row;
+}
+.item :hover {
+    background-color: #EAE0C8;
 }

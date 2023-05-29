@@ -1,32 +1,53 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
-    grid-template-rows: 1fr 8fr 1fr;
-    gap: 0px 0px;
+    grid-template-rows: 1fr;
+    gap: 10px 10px;
     grid-auto-flow: row;
     grid-template-areas:
-    ". . ."
-    ". c ."
-    ". . .";
-    width: 216px;
-    height: 512px;
-    border: solid 2px #EAE0C8;
-    border-radius: 25px;
+    "i n d";
+}
+.container :hover {
+    background-color: #EAE0C8;
+}
+
+.imgBox {
+    display: grid;
+    grid-area: i;
+    justify-content: center;
+}
+
+.infoBox {
+    grid-area: n;
+    display: grid;
+    grid-template:
+    "n n"
+    "p a";
+    justify-content: start;
+}
+
+.durationBox {
+    display: grid;
+    grid-area: d;
+    justify-content: center;
 }
 
 .img {
-    height: 160px;
-    width: 160px;
+    height: 100px;
+    width: 100px;
     border-radius: 25px;
 }
-.content{
-    grid-area: c;
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
+
+.performer {
+    grid-area: p;
 }
-.name{
+
+.album {
+    grid-area: a;
+}
+
+.name {
     text-decoration: #EAE0C8 underline;
     font-weight: bold;
+    grid-area: n;
 }

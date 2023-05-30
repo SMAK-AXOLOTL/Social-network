@@ -5,6 +5,8 @@
     gap: 10px 10px;
     grid-auto-flow: row;
 }
-.item :hover {
+
+.container :hover{
     background-color: #EAE0C8;
 }
+

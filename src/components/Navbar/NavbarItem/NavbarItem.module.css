@@ -2,10 +2,12 @@
     height: 32px;
     padding: 3px;
     justify-items: self-start;
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: left;
 }
 
 .item a {
-    margin: 10px;
     color: black;
     text-decoration: none;
 }

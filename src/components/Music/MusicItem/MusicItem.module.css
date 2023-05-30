@@ -7,9 +7,6 @@
     grid-template-areas:
     "i n d";
 }
-.container :hover {
-    background-color: #EAE0C8;
-}
 
 .imgBox {
     display: grid;

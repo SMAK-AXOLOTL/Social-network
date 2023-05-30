@@ -2,9 +2,9 @@
     display: grid;
     grid-template-columns: 1fr 16fr;
     grid-template-rows: 1fr 1fr;
-    border: solid 3px #EAE0C8;
-    border-radius: 7px;
-    height: auto;
+    border: solid 0.3rem #EAE0C8;
+    border-radius: 0.7rem;
+    height: 10rem;
     align-items: center;
 }
 

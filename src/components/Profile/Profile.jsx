@@ -5,7 +5,6 @@ import AllPostsContainer from "./AllPosts/AllPostsContainer";
 
 
 const Profile = (props) => {
-    debugger
     return (<div className={s.content}>
         <ProfileInfo/>
         <AllPostsContainer

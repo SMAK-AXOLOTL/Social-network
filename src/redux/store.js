@@ -1,6 +1,6 @@
 import {profileReducer} from "./profileReducer";
 import {sidebarReducer} from "./sidebarReducer";
-import {dialogsReducer} from "./dialogReducer";
+import {dialogsReducer} from "./messagesReducer";
 
 let store = {
     _rerenderEntireTree() {

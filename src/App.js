@@ -16,7 +16,7 @@ function App(props) {
         <BrowserRouter>
             <div className='app_wrapper'>
                 <Header/>
-                <Navbar dialogs={props.store.getState().dialogsPage.dialogsData}/>
+                <Navbar dialogs={props.store.getState().messagesPage.dialogsData}/>
                 <div className='app_wrapper_content'>
                     <Routes>
                         <Route path='/messages/*' element={

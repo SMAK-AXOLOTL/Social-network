@@ -20,7 +20,7 @@ export const musicReducer = (state = initialState, action) => {
     }
 }
 
-export const setMusicAC = (musicData) => ({
+export const setMusic = (musicData) => ({
     type: SET_MUSIC,
     payload: musicData
 })

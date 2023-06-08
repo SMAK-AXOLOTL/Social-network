@@ -4,18 +4,19 @@ import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 
 const Messages = (props) => {
+
     const dialogsMapped = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
     const messagesMapped = props.messagesData.map(m => <MessageItem text={m.text}/>)
 
     let messageElement = React.createRef()
 
     const onClick = () => {
-        props.onClick()
+        props.addMessage()
     }
 
     const onChange = () =>{
         let text = messageElement.current.value;
-        props.onChange(text)
+        props.updateNewMessageText(text)
     }
 
     return (

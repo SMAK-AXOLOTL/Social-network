@@ -1,14 +1,14 @@
 import {combineReducers, legacy_createStore as createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {sidebarReducer} from "./sidebarReducer";
-import {dialogsReducer} from "./dialogReducer";
+import {messagesReducer} from "./messagesReducer";
 import {usersReducer} from "./usersReducer";
 import {musicReducer} from "./musicReducer";
 
 
 let reducers = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
+    messagesPage: messagesReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     musicPage: musicReducer

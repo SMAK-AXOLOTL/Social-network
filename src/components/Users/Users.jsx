@@ -1,6 +1,7 @@
 import React from 'react'
 import s from "./Users.module.css";
 import UserItem from "./UserItem/UserItem";
+import {NavLink} from "react-router-dom";
 
 let Users = (props) => {
 
@@ -28,12 +29,15 @@ let Users = (props) => {
         </div>
         {
             props.users.map(u =>
-                <UserItem
-                    key={u.id}
-                    user={u}
-                    follow={props.follow}
-                    unfollow={props.unfollow}
-                />)
+                <NavLink to={'/profile/' + u.id}>
+                    <UserItem
+                        key={u.id}
+                        user={u}
+                        follow={props.follow}
+                        unfollow={props.unfollow}
+                    />
+                </NavLink>
+                )
         }
     </div>
 }

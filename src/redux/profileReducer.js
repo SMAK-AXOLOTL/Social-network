@@ -1,7 +1,9 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 let initialState = {
+    profile: null,
     postsData: [
         {id: 1, message: 'I have no mouth, but i have to scream', rating: 20},
         {id: 2, message: 'Am I alone here?', rating: 89},
@@ -33,25 +35,17 @@ export const profileReducer = (state = initialState, action) => {
                 _newPostText: action.payload
             }
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.payload
+            }
+        }
         default: {
             return state
         }
     }
 }
-
-/*const profileReducer = createReducer(initialState, (builder) => {
-    builder
-        .addCase(ADD_POST, (state, action) => {
-            let newPost = {
-                id: 6, message: state._newPostText, rating: 0
-            }
-            state.postsData.push(newPost)
-            state.setNewPostText('')
-        })
-        .addCase(UPDATE_NEW_POST_TEXT, (state, action) => {
-            state._newPostText = action.payload
-        })
-})*/
 
 export const addPostActionCreator = () => ({
     type: ADD_POST
@@ -61,4 +55,10 @@ export const updateNewPostTextActionCreator = (text) => ({
     type: UPDATE_NEW_POST_TEXT,
     payload: text
 })
+export const setUserProfile = (text) => ({
+    type: SET_USER_PROFILE,
+    payload: text
+})
+
+
 

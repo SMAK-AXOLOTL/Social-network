@@ -8,3 +8,18 @@
 .profile_block {
     padding: 10px;
 }
+
+#multiline{
+    white-space: pre-line;
+}
+
+.pic{
+    height: 4em;
+    width: 4em;
+}
+
+.profile_pic{
+    height: 15em;
+    width: 15em;
+    border-radius: 10em;
+}

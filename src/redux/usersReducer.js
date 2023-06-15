@@ -1,16 +1,20 @@
+import {followAPI, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING'
 
 let initialState = {
     users: [],
     pageSize: 5,
     totalUsers: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: false,
+    isFollowing: []
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -20,7 +24,7 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.payload) {
-                        return {...u, isFollowed: true}
+                        return {...u, followed: true}
                     }
                     return u
                 })
@@ -31,7 +35,7 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.payload) {
-                        return {...u, isFollowed: false}
+                        return {...u, followed: false}
                     }
                     return u
                 })
@@ -58,17 +62,25 @@ export const usersReducer = (state = initialState, action) => {
                 isFetching: action.payload
             }
         }
+        case TOGGLE_IS_FOLLOWING: {
+            return {
+                ...state,
+                isFollowing: action.payload.isFollowing
+                    ? [...state.isFollowing, action.payload.userId]
+                    : state.isFollowing.filter(id => id != action.payload.userId)
+            }
+        }
         default: {
             return state
         }
     }
 }
 
-export const follow = (userId) => ({
+export const confirmFollow = (userId) => ({
     type: FOLLOW,
     payload: userId
 })
-export const unfollow = (userId) => ({
+export const confirmUnfollow = (userId) => ({
     type: UNFOLLOW,
     payload: userId
 })
@@ -89,3 +101,39 @@ export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING,
     payload: isFetching
 })
+export const toggleIsFollowing = (isFollowing, userId) => ({
+    type: TOGGLE_IS_FOLLOWING,
+    payload: {
+        isFollowing: isFollowing,
+        userId: userId
+    }
+})
+
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
+    dispatch(toggleIsFetching(true))
+
+    usersAPI.getUsers(currentPage, pageSize).finally(dispatch(toggleIsFetching(false))).then(data => {
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsers(data.totalCount))
+    })
+}
+
+export const follow = (userId) => (dispatch) => {
+    dispatch(toggleIsFollowing(true, userId))
+    followAPI.followUser(userId).then(data => {
+        if (data.resultCode == 0) {
+            dispatch(confirmFollow(userId))
+            dispatch(toggleIsFollowing(false, userId))
+        }
+    })
+}
+
+export const unfollow = (userId) => (dispatch) => {
+    dispatch(toggleIsFollowing(true, userId))
+    followAPI.unfollowUser(userId).then(data => {
+        if (data.resultCode == 0) {
+            dispatch(confirmUnfollow(userId))
+            dispatch(toggleIsFollowing(false, userId))
+        }
+    })
+}

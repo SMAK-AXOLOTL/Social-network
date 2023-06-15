@@ -1,8 +1,12 @@
-.header{
+.header {
     grid-area: header;
     background-color: #FAEEDD;
 }
 
-.logo{
+.logo {
     width: 20px;
+}
+
+.login_block {
+    float: right;
 }

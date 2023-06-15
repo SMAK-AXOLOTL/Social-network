@@ -2,9 +2,20 @@
     display: grid;
     grid-template-rows: 1fr;
 }
-.pageSelector{
+
+.pageSelector {
 
 }
-.selectedPage{
+
+.selectedPage {
     font-weight: bold;
+}
+
+.usersBox {
+    display: grid;
+
+}
+
+.usersBox :hover {
+    background-color: #EAE0C8;
 }

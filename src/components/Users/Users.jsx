@@ -1,7 +1,6 @@
 import React from 'react'
 import s from "./Users.module.css";
 import UserItem from "./UserItem/UserItem";
-import {NavLink} from "react-router-dom";
 
 let Users = (props) => {
 
@@ -14,7 +13,7 @@ let Users = (props) => {
     let curPR = props.currentPage + 5
     let slicedPages = pages.slice(curPL, curPR)
 
- 
+
     return <div className={s.box}>
         <div className={s.pageSelector}>
             {slicedPages.map(p => {
@@ -27,18 +26,19 @@ let Users = (props) => {
                         </span>
             })}
         </div>
-        {
-            props.users.map(u =>
-                <NavLink to={'/profile/' + u.id}>
+        <div className={s.usersBox}>
+            {
+                props.users.map(u =>
                     <UserItem
                         key={u.id}
                         user={u}
                         follow={props.follow}
                         unfollow={props.unfollow}
+                        isFollowing={props.isFollowing}
                     />
-                </NavLink>
                 )
-        }
+            }
+        </div>
     </div>
 }
 

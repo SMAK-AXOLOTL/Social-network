@@ -1,9 +1,11 @@
-import {combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {sidebarReducer} from "./sidebarReducer";
 import {messagesReducer} from "./messagesReducer";
 import {usersReducer} from "./usersReducer";
 import {musicReducer} from "./musicReducer";
+import {authReducer} from "./authReducer";
+import thunkMiddleWare from "redux-thunk";
 
 
 let reducers = combineReducers({
@@ -11,10 +13,11 @@ let reducers = combineReducers({
     messagesPage: messagesReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    musicPage: musicReducer
+    musicPage: musicReducer,
+    auth: authReducer
 })
 
-const store = createStore(reducers)
+const store = createStore(reducers, applyMiddleware(thunkMiddleWare))
 
 window.store = store
 

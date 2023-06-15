@@ -1,7 +1,6 @@
 import React from "react";
 import s from './Navbar.module.css'
 import NavbarItem from "./NavbarItem/NavbarItem";
-import FriendsBlock from "./FriendsBlock/FriendsBlock";
 
 
 const Navbar = (props) => {

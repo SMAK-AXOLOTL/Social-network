@@ -1,6 +1,5 @@
 import React from "react";
 import './App.css';
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MusicContainer from "./components/Music/MusicContainer";
@@ -9,13 +8,14 @@ import Settings from "./components/Settings/Settings";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 function App(props) {
     return (
         <BrowserRouter>
             <div className='app_wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar dialogs={props.store.getState().messagesPage.dialogsData}/>
                 <div className='app_wrapper_content'>
                     <Routes>
@@ -24,7 +24,7 @@ function App(props) {
                                 store={props.store}
                             />
                         }/>
-                        <Route path='/profile*' element={
+                        <Route path='/profile/:userId?' element={
                             <ProfileContainer/>
                         }/>
                         <Route path='/music' element={<MusicContainer/>}/>

@@ -2,18 +2,13 @@ import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 import React from "react";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
+
 
 class MessagesContainer extends React.Component {
     render() {
-        return <>
-            <Messages
-                dialogsData={this.props.dialogsData}
-                messagesData={this.props.messagesData}
-                newMessageText={this.props.newMessageText}
-                updateNewMessageText={this.props.updateNewMessageText}
-                addMessage={this.props.addMessage}
-            />
-        </>
+        return <Messages {...this.props}/>
     }
 }
 
@@ -25,4 +20,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {addMessage, updateNewMessageText})(MessagesContainer)
+export default compose(
+    connect(mapStateToProps, {addMessage, updateNewMessageText}),
+    withAuthRedirect
+)(MessagesContainer)

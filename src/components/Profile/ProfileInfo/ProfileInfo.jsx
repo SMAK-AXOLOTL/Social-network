@@ -2,7 +2,7 @@ import s from "./ProfileInfo.module.css";
 import React from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import placeholder from '../../../assets/images/user_image_placeholder.png'
-
+import ProfileStatus from './ProfileStatus'
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
@@ -74,7 +74,7 @@ const ProfileInfo = (props) => {
 
     return (
         <div className={s.profile_block}>
-            <img className={s.bigPicture} src='https://media.zicxa.com/6858371'/>
+            {/*<img className={s.bigPicture} src='https://media.zicxa.com/6858371'/>*/}
             <div>
                 <img src={props.profile.photos.large ? props.profile.photos.large : placeholder}
                      className={s.profile_pic}/>
@@ -82,7 +82,7 @@ const ProfileInfo = (props) => {
                     {props.profile.fullName}
                 </div>
                 <div className={s.multiline}>
-                    {props.profile.aboutMe}
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 </div>
                 <div>
                     {isLookingForJob()}

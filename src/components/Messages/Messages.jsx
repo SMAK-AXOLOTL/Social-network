@@ -2,22 +2,13 @@ import React from "react";
 import s from './Messages.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
+import {Form, Formik} from "formik";
+import {TextInput} from "../../utils/FormComponents";
 
 const Messages = (props) => {
 
     const dialogsMapped = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
     const messagesMapped = props.messagesData.map(m => <MessageItem text={m.text}/>)
-
-    let messageElement = React.createRef()
-
-    const onClick = () => {
-        props.addMessage()
-    }
-
-    const onChange = () =>{
-        let text = messageElement.current.value;
-        props.updateNewMessageText(text)
-    }
 
     return (
         <div className={s.dialogs}>
@@ -26,8 +17,26 @@ const Messages = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesMapped}
-                <textarea ref={messageElement} value={props.newMessageText} placeholder={'Enter message here!'} onChange={onChange}></textarea>
-                <button onClick={onClick}>Send</button>
+                <Formik
+                    initialValues={{
+                        newMessageText: props.newMessageText
+                    }}
+                    onSubmit={(values) => {
+                        props.updateNewMessageText(values.newMessageText)
+                        props.addMessage()
+                    }}
+                >
+                    <Form>
+                        <TextInput
+                            name={'newMessageText'}
+                            placeholder={'Enter message here!'}
+                            onBlur={e => {
+                                props.updateNewMessageText(e.target.value)
+                            }}
+                        />
+                        <button>Send</button>
+                    </Form>
+                </Formik>
             </div>
         </div>
     )

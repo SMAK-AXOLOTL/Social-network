@@ -15,12 +15,6 @@ let initialState = {
         {id: 5, message: 'Hello, world!', rating: 0},
     ],
     _newPostText: '',
-    getNewPostText() {
-        return this._newPostText
-    },
-    setNewPostText(value) {
-        this._newPostText = value
-    },
     status: ''
 }
 
@@ -29,8 +23,8 @@ export const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             return {
                 ...state,
-                _newPostText: '',
-                postsData: [...state.postsData, {id: 6, message: state._newPostText, rating: 0}]
+                postsData: [...state.postsData, {id: 6, message: state._newPostText, rating: 0}],
+                _newPostText: ''
             }
         }
         case UPDATE_NEW_POST_TEXT: {

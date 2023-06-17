@@ -1,30 +1,43 @@
 import React from "react";
 import s from './AllPosts.module.css'
 import Post from "./Post/Post";
+import {TextInput} from "../../../utils/FormComponents";
+import {Form, Formik} from "formik";
 
 const AllPosts = (props) => {
     const postsMapped = props.postsData.map(x => <Post message={x.message} rating={x.rating}/>)
-
-    let newPostElement = React.createRef()
-
-    const onAddPost = () => {
-        if (newPostElement.current.value !== ''){
-            props.addPost()
-        }
-    }
-
-    const onPostChange = () => {
-        let text = newPostElement.current.value
-        props.updateNewPostText(text)
-    }
 
     return (
         <div className={s.posts_block}>
             My posts
             <div>
-                <textarea className={s.textArea} ref={newPostElement} value={props.newPostText} placeholder={'Enter new post here!'}
-                          onChange={onPostChange}></textarea>
-                <button onClick={onAddPost}>New post</button>
+                <Formik
+                    initialValues={{
+                        newPostText: props.newPostText
+                    }}
+                    onSubmit={(values) => {
+                        if (values.newPostText != ''){
+                            props.updateNewPostText(values.newPostText)
+                            props.addPost()
+                        }
+                    }}
+                >
+                    <Form>
+                        <TextInput
+                            label={''}
+                            name={'newPostText'}
+                            type={'textarea'}
+                            placeholder={'Enter new post here!'}
+                            onBlur={e => {
+                                props.updateNewPostText(e.target.value)
+                            }}
+
+                        />
+                        <div>
+                            <button>New post</button>
+                        </div>
+                    </Form>
+                </Formik>
             </div>
             <div className={s.posts}>
                 {postsMapped}

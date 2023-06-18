@@ -16,8 +16,7 @@ export const authReducer = (state = initialState, action) => {
         case SET_USER_DATA: {
             return {
                 ...state,
-                ...action.payload,
-                isAuth: true
+                ...action.payload
             }
         }
         case TOGGLE_AUTH_IS_FETCHING: {
@@ -32,12 +31,13 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (id, email, login) => ({
+export const setAuthUserData = (id, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: {
         id: id,
         email: email,
-        login: login
+        login: login,
+        isAuth: isAuth
     }
 })
 export const toggleAuthIsFetching = (isFetching) => ({
@@ -45,13 +45,32 @@ export const toggleAuthIsFetching = (isFetching) => ({
     payload: isFetching
 })
 
-export const authMe = () => (dispatch) => {
+export const getAuthUserData = () => (dispatch) => {
     dispatch(toggleAuthIsFetching(true))
-    authAPI.authMe().then(data => {
-        if (data.resultCode == 0){
+    return authAPI.authMe().then(data => {
+        if (data.resultCode === 0) {
             let {id, email, login} = data.data
-            dispatch(setAuthUserData(id, email, login))
+            dispatch(setAuthUserData(id, email, login, true))
             dispatch(toggleAuthIsFetching(false))
         }
     })
+}
+export const login = (email, password, rememberMe = false, setStatus) => (dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else{
+                setStatus({error: data.messages})
+            }
+        })
+}
+
+export const logout = () => (dispatch) => {
+    authAPI.logout()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
 }

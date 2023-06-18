@@ -60,8 +60,8 @@ export const login = (email, password, rememberMe = false, setStatus) => (dispat
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(getAuthUserData())
-            } else{
-                setStatus({error: data.messages})
+            } else {
+                setStatus('Invalid E-mail or password')
             }
         })
 }

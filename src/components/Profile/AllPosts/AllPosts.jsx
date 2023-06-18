@@ -15,10 +15,11 @@ const AllPosts = (props) => {
                     initialValues={{
                         newPostText: props.newPostText
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={(values, actions) => {
                         if (values.newPostText != ''){
                             props.updateNewPostText(values.newPostText)
                             props.addPost()
+                            actions.setFieldValue('newPostText', '')
                         }
                     }}
                 >

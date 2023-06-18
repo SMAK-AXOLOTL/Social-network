@@ -30,8 +30,8 @@ export const messagesReducer = (state = initialState, action) => {
         case ADD_MESSAGE: {
             return {
                 ...state,
-                _newMessageText: '',
-                messagesData: [...state.messagesData, {id: 7, text: state.getNewMessageText()}]
+                messagesData: [...state.messagesData, {id: 7, text: state.getNewMessageText()}],
+                _newMessageText: ''
             }
         }
         case UPDATE_NEW_MESSAGE_TEXT: {

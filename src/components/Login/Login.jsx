@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Form, Formik} from "formik";
 import {Checkbox, TextInput} from "../../utils/FormComponents";
 import s from './Login.module.css'
@@ -9,43 +9,8 @@ import {syncValidate} from "../../utils/Validation";
 
 
 const LoginForm = (props) => {
-    /*const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
-        }, onSubmit: (values, actions) => {
-            alert(JSON.stringify(values, null, 2))
-            props.login(values.email, values.password, values.rememberMe, actions.setStatus)
-            actions.resetForm()
-        }, /!*validate: values => {
-            const errors = {};
+    const [status, changeStatus] = useState('')
 
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-                errors.password = 'Required'
-            }
-            return errors;
-        }*!/
-    })
-
-    return <form onSubmit={formik.handleSubmit}>
-        <label>email - </label>
-        <input id={'email'} name={'email'} type={'text'} onChange={formik.handleChange} value={formik.values.email}/>
-        {errors.email && touched.email}
-        <div></div>
-        <label>password - </label>
-        <input id={'password'} name={'password'} type={'password'} onChange={formik.handleChange} value={formik.values.password}/>
-        <div></div>
-        <label>Remember me - </label>
-        <input id={'rememberMe'} name={'rememberMe'} type={'checkbox'} onChange={formik.handleChange} value={formik.values.rememberMe}/>
-        <div></div>
-        <button>Submit</button>
-    </form>*/
     return <Formik
         initialValues={{
             email: '',
@@ -54,8 +19,10 @@ const LoginForm = (props) => {
         }}
         validate={syncValidate}
         onSubmit={(values, actions) => {
-            props.login(values.email, values.password, values.rememberMe)
-            actions.resetForm()
+            props.login(values.email, values.password, values.rememberMe, (newStatus) => {
+                changeStatus(newStatus)
+            })
+            actions.setFieldValue('password', '')
         }}>
         <Form>
             <TextInput
@@ -74,6 +41,9 @@ const LoginForm = (props) => {
                 Remember me?
             </Checkbox>
             <div>
+                {status}
+            </div>
+            <div>
                 <button>Submit</button>
             </div>
         </Form>
@@ -85,7 +55,6 @@ const Login = (props) => {
     if (props.isAuth) {
         return <Navigate to={'/profile'}/>
     }
-    //TODO: ajax validation
     return <div className={s.container}>
         <div className={s.content}>
             <h1>

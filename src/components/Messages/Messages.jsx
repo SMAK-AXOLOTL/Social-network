@@ -21,9 +21,10 @@ const Messages = (props) => {
                     initialValues={{
                         newMessageText: props.newMessageText
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={(values, actions) => {
                         props.updateNewMessageText(values.newMessageText)
                         props.addMessage()
+                        actions.setFieldValue('newMessageText', '')
                     }}
                 >
                     <Form>

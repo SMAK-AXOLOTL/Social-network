@@ -3,6 +3,7 @@ import React from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import placeholder from '../../../assets/images/user_image_placeholder.png'
 import ProfileStatus from './ProfileStatus'
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
@@ -82,7 +83,7 @@ const ProfileInfo = (props) => {
                     {props.profile.fullName}
                 </div>
                 <div className={s.multiline}>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} setStatus={props.setStatus}/>
                 </div>
                 <div>
                     {isLookingForJob()}

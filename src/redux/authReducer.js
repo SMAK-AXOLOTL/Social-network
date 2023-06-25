@@ -4,7 +4,7 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_AUTH_IS_FETCHING = 'TOGGLE_AUTH_IS_FETCHING'
 
 let initialState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isFetching: false,
@@ -34,7 +34,7 @@ export const authReducer = (state = initialState, action) => {
 export const setAuthUserData = (id, email, login, isAuth) => ({
     type: SET_USER_DATA,
     payload: {
-        id: id,
+        userId: id,
         email: email,
         login: login,
         isAuth: isAuth

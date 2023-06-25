@@ -32,7 +32,6 @@ const AllPosts = (props) => {
                             onBlur={e => {
                                 props.updateNewPostText(e.target.value)
                             }}
-
                         />
                         <div>
                             <button>New post</button>

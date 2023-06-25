@@ -62,7 +62,7 @@ export const setUserProfile = (text) => ({
     type: SET_USER_PROFILE,
     payload: text
 })
-export const getProfile = (userId) => (dispatch) => {
+export const getUserProfile = (userId) => (dispatch) => {
     if (!userId){
         userId = 29281
     }

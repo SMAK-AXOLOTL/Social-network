@@ -3,35 +3,31 @@ import s from './Post.module.css'
 
 const Post = (props) => {
     let [currentRating, setCurrentRating] = useState(props.rating)
-    let [isLiked, setIsLiked] = useState(false)
-    let [isDisliked, setIsDisliked] = useState(false)
+    let [isRatedWith, RateWith] = useState(0)
+
 
     function likePost() {
-        switch (isLiked){
-            case false:
-                setCurrentRating(currentRating + 1)
-                setIsLiked(true)
-                setIsDisliked( false)
-                break
-            case true:
+        switch (isRatedWith){
+            case 1:
                 setCurrentRating(currentRating - 1)
-                setIsLiked(false)
-                setIsDisliked( false)
+                RateWith(0)
+                break
+            default:
+                setCurrentRating(props.rating + 1)
+                RateWith(1)
                 break
         }
     }
 
     function dislikePost() {
-        switch (isDisliked){
-            case false:
-                setCurrentRating(currentRating - 1)
-                setIsLiked(false)
-                setIsDisliked( true)
-                break
-            case true:
+        switch (isRatedWith){
+            case -1:
                 setCurrentRating(currentRating + 1)
-                setIsLiked(false)
-                setIsDisliked( false)
+                RateWith(0)
+                break
+            default:
+                setCurrentRating(props.rating - 1)
+                RateWith(-1)
                 break
         }
     }

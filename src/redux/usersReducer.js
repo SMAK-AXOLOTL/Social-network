@@ -67,7 +67,7 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFollowing: action.payload.isFollowing
                     ? [...state.isFollowing, action.payload.userId]
-                    : state.isFollowing.filter(id => id != action.payload.userId)
+                    : state.isFollowing.filter(id => id !== action.payload.userId)
             }
         }
         default: {
@@ -121,7 +121,7 @@ export const getUsers = (currentPage, pageSize) => (dispatch) => {
 export const follow = (userId) => (dispatch) => {
     dispatch(toggleIsFollowing(true, userId))
     followAPI.followUser(userId).then(data => {
-        if (data.resultCode == 0) {
+        if (data.resultCode === 0) {
             dispatch(confirmFollow(userId))
             dispatch(toggleIsFollowing(false, userId))
         }
@@ -131,7 +131,7 @@ export const follow = (userId) => (dispatch) => {
 export const unfollow = (userId) => (dispatch) => {
     dispatch(toggleIsFollowing(true, userId))
     followAPI.unfollowUser(userId).then(data => {
-        if (data.resultCode == 0) {
+        if (data.resultCode === 0) {
             dispatch(confirmUnfollow(userId))
             dispatch(toggleIsFollowing(false, userId))
         }

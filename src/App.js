@@ -34,7 +34,7 @@ class App extends React.Component{
                         <Routes>
                             <Route path='/messages/*' element={
                                 <MessagesContainer
-                                    store={this. props.store}
+                                    store={this.props.store}
                                 />
                             }/>
                             <Route path='/profile/:userId?' element={

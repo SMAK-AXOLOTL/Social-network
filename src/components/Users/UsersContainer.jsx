@@ -4,32 +4,30 @@ import {
     setCurrentPage,
     unfollow
 } from "../../redux/usersReducer";
-import React from "react";
+import React, {useEffect} from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 
 
-class UsersContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+const UsersContainer = props => {
+
+    useEffect(() => {
+        props.getUsers(props.currentPage, props.pageSize)
+    },[])
+
+    const onPageSelectorClick = (selectedPage) => {
+        props.setCurrentPage(selectedPage)
+        props.getUsers(selectedPage, props.pageSize)
     }
 
-    onPageSelectorClick = (selectedPage) => {
-        this.props.setCurrentPage(selectedPage)
-
-        this.props.getUsers(selectedPage, this.props.pageSize)
-    }
-
-    render() {
         return <>
-            {this.props.isFetching
+            {props.isFetching
                 ? <Preloader/>
                 : <Users
-                    {...this.props}
-                    onPageSelectorClick={this.onPageSelectorClick}
+                    {...props}
+                    onPageSelectorClick={onPageSelectorClick}
                 />}
         </>
-    }
 }
 
 let mapStateToProps = (state) => {

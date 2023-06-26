@@ -1,17 +1,17 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const ADD_POST = 'ADD_POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
-const SET_STATUS = ''
+const SET_STATUS = 'SET_STATUS'
 
 let initialState = {
     profile: null,
     postsData: [
-        {id: 1, message: 'I have no mouth, but i have to scream', rating: 20},
-        {id: 2, message: 'Am I alone here?', rating: 89},
-        {id: 3, message: 'Hello?', rating: 3},
-        {id: 4, message: 'Where is everybody?', rating: -1},
+        {id: 1, message: 'I\'m scared', rating: 0},
+        {id: 2, message: 'Am I alone here?', rating: 0},
+        {id: 3, message: 'Hello?', rating: 0},
+        {id: 4, message: 'Where is everybody?', rating: 0},
         {id: 5, message: 'Hello, world!', rating: 0},
     ],
     _newPostText: '',

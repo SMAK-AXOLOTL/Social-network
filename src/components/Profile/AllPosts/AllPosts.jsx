@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {TextInput} from "../../../utils/FormComponents";
 import {Form, Formik} from "formik";
 
-const AllPosts = (props) => {
+const AllPosts = React.memo(props => {
     const postsMapped = props.postsData.map(x => <Post message={x.message} rating={x.rating}/>)
 
     return (
@@ -16,7 +16,7 @@ const AllPosts = (props) => {
                         newPostText: props.newPostText
                     }}
                     onSubmit={(values, actions) => {
-                        if (values.newPostText != ''){
+                        if (values.newPostText !== '') {
                             props.updateNewPostText(values.newPostText)
                             props.addPost()
                             actions.setFieldValue('newPostText', '')
@@ -43,6 +43,6 @@ const AllPosts = (props) => {
                 {postsMapped}
             </div>
         </div>)
-}
+})
 
 export default AllPosts

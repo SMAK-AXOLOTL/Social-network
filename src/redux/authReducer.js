@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 
-const SET_USER_DATA = 'SET_USER_DATA'
-const TOGGLE_AUTH_IS_FETCHING = 'TOGGLE_AUTH_IS_FETCHING'
+const SET_USER_DATA = 'auth/SET_USER_DATA'
+const TOGGLE_AUTH_IS_FETCHING = 'auth/TOGGLE_AUTH_IS_FETCHING'
 
 let initialState = {
     userId: null,
@@ -45,32 +45,27 @@ export const toggleAuthIsFetching = (isFetching) => ({
     payload: isFetching
 })
 
-export const getAuthUserData = () => (dispatch) => {
+export const getAuthUserData = () => async (dispatch) => {
     dispatch(toggleAuthIsFetching(true))
-    return authAPI.authMe().then(data => {
-        if (data.resultCode === 0) {
-            let {id, email, login} = data.data
-            dispatch(setAuthUserData(id, email, login, true))
-            dispatch(toggleAuthIsFetching(false))
-        }
-    })
+    let data = await authAPI.authMe()
+    if (data.resultCode === 0) {
+        let {id, email, login} = data.data
+        dispatch(setAuthUserData(id, email, login, true))
+        dispatch(toggleAuthIsFetching(false))
+    }
 }
-export const login = (email, password, rememberMe = false, setStatus) => (dispatch) => {
-    authAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                setStatus('Invalid E-mail or password')
-            }
-        })
+export const login = (email, password, rememberMe = false, setStatus) => async (dispatch) => {
+    let data = await authAPI.login(email, password, rememberMe)
+    if (data.resultCode === 0) {
+        dispatch(getAuthUserData())
+    } else {
+        setStatus('Invalid E-mail or password')
+    }
 }
 
-export const logout = () => (dispatch) => {
-    authAPI.logout()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
-            }
-        })
+export const logout = () => async (dispatch) => {
+    let data = await authAPI.logout()
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
 }

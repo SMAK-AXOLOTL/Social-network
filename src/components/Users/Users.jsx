@@ -1,40 +1,25 @@
 import React from 'react'
 import s from "./Users.module.css";
 import UserItem from "./UserItem/UserItem";
+import Paginator from "../Common/Paginator/Paginator";
 
-let Users = (props) => {
-
-    let pagesCount = Math.ceil(props.totalUsers / props.pageSize)
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-    let curPL = (props.currentPage - 5 < 0 ? 0 : props.currentPage - 5)
-    let curPR = props.currentPage + 5
-    let slicedPages = pages.slice(curPL, curPR)
-
-
+let Users = ({
+                 totalUsers, pageSize, currentPage,
+                 onPageSelectorClick, follow, unfollow,
+                 isFollowing, users
+             }) => {
     return <div className={s.box}>
-        <div className={s.pageSelector}>
-            {slicedPages.map(p => {
-                return <span
-                    className={props.currentPage === p && s.selectedPage}
-                    onClick={() =>
-                        props.onPageSelectorClick(p)
-                    }>
-                            {p + ' '}
-                        </span>
-            })}
-        </div>
+        <Paginator totalUsers={totalUsers} pageSize={pageSize} currentPage={currentPage}
+                   onPageSelectorClick={onPageSelectorClick}/>
         <div className={s.usersBox}>
             {
-                props.users.map(u =>
+                users.map(u =>
                     <UserItem
                         key={u.id}
                         user={u}
-                        follow={props.follow}
-                        unfollow={props.unfollow}
-                        isFollowing={props.isFollowing}
+                        follow={follow}
+                        unfollow={unfollow}
+                        isFollowing={isFollowing}
                     />
                 )
             }

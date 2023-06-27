@@ -48,11 +48,10 @@ const LoginForm = (props) => {
             </div>
         </Form>
     </Formik>
-
 }
 
-const Login = (props) => {
-    if (props.isAuth) {
+const Login = ({isAuth, login}) => {
+    if (isAuth) {
         return <Navigate to={'/profile'}/>
     }
     return <div className={s.container}>
@@ -61,7 +60,7 @@ const Login = (props) => {
                 Login
             </h1>
             <div>
-                <LoginForm login={props.login}/>
+                <LoginForm login={login}/>
             </div>
         </div>
     </div>

@@ -3,13 +3,6 @@
     grid-template-rows: 1fr;
 }
 
-.pageSelector {
-
-}
-
-.selectedPage {
-    font-weight: bold;
-}
 
 .usersBox {
     display: grid;

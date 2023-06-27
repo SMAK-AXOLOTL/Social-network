@@ -1,4 +1,4 @@
-const SET_MUSIC = 'SET_MUSIC'
+const SET_MUSIC = 'music/SET_MUSIC'
 
 
 let initialState = {

@@ -3,15 +3,8 @@ import './index.css';
 import store from "./redux/reduxStore";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import {Provider} from "react-redux";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
-    <Provider store={store}>
-        <App
-            dispatch={store.dispatch.bind(store)}
-            store={store}
-        />
-    </Provider>
-);
+root.render(<App store={store}/>);

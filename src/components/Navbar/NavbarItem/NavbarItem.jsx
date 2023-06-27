@@ -6,7 +6,7 @@ const NavbarItem = (props) => {
     return (
         <NavLink to={props.address} className={s.item}>{
             <div>
-                <img src='https://lh4.ggpht.com/hOtYe8us-QmU6aJGGyLhik9VXCKmWlrx3xNpksb-WDqJ3AnOgnIjUOOtNivRdKJ-baU=w220'/>
+                <img src='https://schtandart.com/bitrix/templates/concept_landing/images/new-blocks_20180813/personal-stepanov-icon_01.png'/>
                 {props.itemName}
             </div>
         }

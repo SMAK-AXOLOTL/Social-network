@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -11,49 +11,54 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Redirector from "./components/Common/Redirector";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/Common/Preloader/Preloader";
+import store from "./redux/reduxStore";
 
 
-class App extends React.Component{
-    componentDidMount() {
-        this.props.initializeApp()
+const App = props => {
+
+    useEffect(() => {
+        props.initializeApp()
+    }, [])
+
+    if (!props.initialized) {
+        return <Preloader/>
     }
 
-    render() {
-        if(!this.props.initialized){
-            return <Preloader/>
-        }
-
-        return <BrowserRouter>
-                <div className='app_wrapper'>
-                    <HeaderContainer/>
-                    <Navbar dialogs={this.props.store.getState().messagesPage.dialogsData}/>
-                    <div className='app_wrapper_content'>
-                        <Routes>
-                            <Route path='/messages/*' element={
-                                <MessagesContainer
-                                    store={this.props.store}
-                                />
-                            }/>
-                            <Route path='/profile/:userId?' element={
-                                <ProfileContainer/>
-                            }/>
-                            <Route path='/music' element={<MusicContainer/>}/>
-                            <Route path='/news' element={<News/>}/>
-                            <Route path='/users' element={<UsersContainer/>}/>
-                            <Route path='/music' element={<MusicContainer/>}/>
-                            <Route path='/settings' element={<Settings/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='' element={<Redirector to={'/profile'}/>}/>
-                        </Routes>
-                    </div>
+    return <BrowserRouter>
+        <Provider store={store}>
+            <div className='app_wrapper'>
+                <HeaderContainer/>
+                <Navbar dialogs={props.dialogsData}/>
+                <div className='app_wrapper_content'>
+                    <Routes>
+                        <Route path='/messages/*' element={
+                            <MessagesContainer
+                                store={props.store}
+                            />
+                        }/>
+                        <Route path='/profile/:userId?' element={
+                            <ProfileContainer/>
+                        }/>
+                        <Route path='/music' element={<MusicContainer/>}/>
+                        <Route path='/news' element={<News/>}/>
+                        <Route path='/users' element={<UsersContainer/>}/>
+                        <Route path='/music' element={<MusicContainer/>}/>
+                        <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/login' element={<Login/>}/>
+                        <Route path='' element={<Redirector to={'/profile'}/>}/>
+                    </Routes>
                 </div>
-            </BrowserRouter>
-    }
+            </div>
+        </Provider>
+    </BrowserRouter>
+
 }
+
 const mapStateToProps = (state) => ({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+    dialogsData: state.messagesPage.dialogsData
 })
 export default connect(mapStateToProps, {initializeApp})(App);

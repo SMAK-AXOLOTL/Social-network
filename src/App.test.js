@@ -1,10 +1,11 @@
 import React from 'react'
 import App from './App'
-import * as ReactDom from "react-dom";
+import {createRoot} from "react-dom/client";
 
 
-it('renders without crash', () => {
-    const div = document.createElement("div")
-    ReactDom.render(<App/>, div)
-    ReactDOM.unmountComponentAtNode(div)
-})
+it('renders without crashing', () => {
+    const container = document.createElement('div');
+    const root = createRoot(container);
+    root.render(<App />);
+    root.unmount();
+});

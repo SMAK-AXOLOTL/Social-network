@@ -2,13 +2,13 @@ import s from "./ProfileInfo.module.css";
 import React from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import placeholder from '../../../assets/images/user_image_placeholder.png'
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }
 
-    let isLookingForJob = () => {
+    const isLookingForJob = () => {
         if (props.profile.lookingForAJob === true) {
             return <div>
                 <p>
@@ -21,7 +21,7 @@ const ProfileInfo = (props) => {
         }
     }
 
-    let getAllContacts = () => {
+    const getAllContacts = () => {
         return Object.entries(props.profile.contacts).map(([key, value]) => {
             if (value != null) {
                 switch (key) {
@@ -74,7 +74,7 @@ const ProfileInfo = (props) => {
                     {props.profile.fullName}
                 </div>
                 <div className={s.multiline}>
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} setStatus={props.setStatus}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} setStatus={props.setStatus}/>
                 </div>
                 <div>
                     {isLookingForJob()}

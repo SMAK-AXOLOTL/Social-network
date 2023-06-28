@@ -35,9 +35,7 @@ const App = props => {
                 <div className='app_wrapper_content'>
                     <Routes>
                         <Route path='/messages/*' element={
-                            <MessagesContainer
-                                store={props.store}
-                            />
+                            <MessagesContainer store={props.store}/>
                         }/>
                         <Route path='/profile/:userId?' element={
                             <ProfileContainer/>
@@ -54,7 +52,6 @@ const App = props => {
             </div>
         </Provider>
     </BrowserRouter>
-
 }
 
 const mapStateToProps = (state) => ({

@@ -1,7 +1,7 @@
 import React, {lazy, Suspense, useEffect} from "react";
 import s from './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import MusicContainer from "./components/Music/MusicContainer";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
@@ -26,7 +26,7 @@ const App = props => {
         return <Preloader/>
     }
 
-    return <BrowserRouter>
+    return <HashRouter>
         <Provider store={store}>
             <div className='app_wrapper'>
                 <HeaderContainer/>
@@ -49,8 +49,7 @@ const App = props => {
                 </div>
             </div>
         </Provider>
-    </BrowserRouter>
-
+    </HashRouter>
 }
 
 const mapStateToProps = (state) => ({

@@ -1,8 +1,18 @@
 .container {
     display: grid;
-    /*place-items: center;*/
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+    ". . ."
+    ". c ."
+    ". . l";
 }
 
 .content {
     grid-area: c;
+}
+
+.loginInfo{
+    grid-area: l;
 }

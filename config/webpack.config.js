@@ -1,5 +1,6 @@
 'use strict';
 
+const Dotenv = require('dotenv-webpack');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -43,6 +44,7 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
+
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
 
@@ -469,6 +471,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+        new Dotenv(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

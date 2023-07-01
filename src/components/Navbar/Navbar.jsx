@@ -3,10 +3,10 @@ import s from './Navbar.module.css'
 import NavbarItem from "./NavbarItem/NavbarItem";
 
 
-const Navbar = (props) => {
+const Navbar = () => {
     return (<div className={s.navBar}>
             <nav className={s.nav}>
-                <NavbarItem address='profile' itemName='Profile'/>
+                <NavbarItem address='profile/' itemName='Profile'/>
                 <NavbarItem address='messages' itemName='Messages'/>
                 <NavbarItem address='news' itemName='News'/>
                 <NavbarItem address='music' itemName='Music'/>

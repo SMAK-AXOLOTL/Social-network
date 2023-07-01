@@ -63,6 +63,14 @@ const Login = ({isAuth, login}) => {
                 <LoginForm login={login}/>
             </div>
         </div>
+        <div className={s.loginInfo}>
+            <div>
+                You can test the site with this login information:
+            </div>
+            <div>Email: free@samuraijs.com
+
+                Password: free</div>
+        </div>
     </div>
 };
 

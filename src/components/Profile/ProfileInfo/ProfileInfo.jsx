@@ -1,29 +1,17 @@
 import s from "./ProfileInfo.module.css";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import placeholder from '../../../assets/images/user_image_placeholder.png'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import {Form, Formik} from "formik";
+import {Checkbox, TextInput} from "../../../utils/FormComponents";
+
 const ProfileInfo = (props) => {
 
-    useEffect(() => {
-
-    },[props.profile])
+    const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
         return <Preloader/>
-    }
-
-    const isLookingForJob = () => {
-        if (props.profile.lookingForAJob === true) {
-            return <div>
-                <p>
-                    I'm looking for a job!
-                </p>
-                {
-                    props.profile.lookingForAJobDescription
-                }
-            </div>
-        }
     }
 
     const getAllContacts = () => {
@@ -34,7 +22,7 @@ const ProfileInfo = (props) => {
                         return <a href={props.profile.contacts.facebook}>
                             <img className={s.pic}
                                  src={'https://lawshelf.com/assets/img/Facebook%20logo.png'}
-                                alt={'facebook logo'}
+                                 alt={'facebook logo'}
                             />
                         </a>
                     case 'website':
@@ -83,34 +71,151 @@ const ProfileInfo = (props) => {
             }
         })
     }
-
     const ProfilePhotoSelected = (e) => {
-        if(e.target.files.length){
+        if (e.target.files.length) {
             props.savePhoto(e.target.files[0])
         }
     }
-
-    return (
-        <div className={s.profile_block}>
-            <div>
-                <img src={props.profile.photos.large ? props.profile.photos.large : placeholder}
-                     className={s.profile_pic} alt={'Profile picture'}/>
-                {props.isOwner && <input type={'file'} onChange={ProfilePhotoSelected}/>}
+    const toggleEditMode = () => {
+        setEditMode(!editMode)
+    }
+    const ProfileForm = ({profile}) => {
+        return <Formik initialValues={
+            {
+                fullName: profile.fullName,
+                aboutMe: profile.aboutMe,
+                lookingForAJob: profile.lookingForAJob,
+                lookingForAJobDescription: profile.lookingForAJobDescription,
+                contacts: {
+                    facebook: profile.contacts.facebook,
+                    website: profile.contacts.website,
+                    vk: profile.contacts.vk,
+                    twitter: profile.contacts.twitter,
+                    instagram: profile.contacts.instagram,
+                    youtube: profile.contacts.youtube,
+                    github: profile.contacts.github
+                }
+            }
+        } onSubmit={(values) => {
+            props.updateProfileData(values, profile.userId)
+            toggleEditMode()
+        }}>
+            <Form>
                 <div>
-                    {props.profile.fullName}
+                    <div>
+                        <TextInput
+                            label={"Whats your full name? "}
+                            name={"fullName"}
+                            type={"text"}
+                            placeholder={profile.aboutMe}
+                        />
+                    </div>
+                    <div>
+                        <TextInput
+                            label={"Tell us something about you: "}
+                            name={"aboutMe"}
+                            type={"text"}
+                            placeholder={profile.aboutMe}
+                        />
+                    </div>
+                    <div>
+                        <Checkbox name={"lookingForAJob"}>
+                            Are you looking for a job?
+                        </Checkbox>
+                        <TextInput
+                            label={"Enter your desired job description: "}
+                            name={"lookingForAJobDescription"}
+                            type={"text"}
+                            placeholder={profile.lookingForAJobDescription}
+                        />
+                    </div>
+                    <div>
+                        <p>Edit your contacts below:</p>
+                        <TextInput
+                            label={"facebook"}
+                            name={"contacts.facebook"}
+                            type={"text"}
+                            placeholder={profile.contacts.facebook}
+                        />
+                        <TextInput
+                            label={"website"}
+                            name={"contacts.website"}
+                            type={"text"}
+                            placeholder={profile.contacts.website}
+                        />
+                        <TextInput
+                            label={"vk"}
+                            name={"contacts.vk"}
+                            type={"text"}
+                            placeholder={profile.contacts.vk}
+                        />
+                        <TextInput
+                            label={"twitter"}
+                            name={"contacts.twitter"}
+                            type={"text"}
+                            placeholder={profile.contacts.twitter}
+                        />
+                        <TextInput
+                            label={"instagram"}
+                            name={"contacts.instagram"}
+                            type={"text"}
+                            placeholder={profile.contacts.instagram}
+                        />
+                        <TextInput
+                            label={"youtube"}
+                            name={"contacts.youtube"}
+                            type={"text"}
+                            placeholder={profile.contacts.youtube}
+                        />
+                        <TextInput
+                            label={"github"}
+                            name={"contacts.github"}
+                            type={"text"}
+                            placeholder={profile.contacts.github}
+                        />
+                    </div>
                 </div>
-                <div className={s.multiline}>
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} setStatus={props.setStatus}/>
-                </div>
+                <button>Submit changes</button>
+                <button onClick={toggleEditMode}>Cancel</button>
+            </Form>
+        </Formik>
+    }
+    const ProfileData = ({profile}) => {
+        return (
+            <div className={s.profile_block}>
                 <div>
-                    {isLookingForJob()}
-                </div>
-                <div>
-                    <p>Contact me on:</p>
-                    {getAllContacts()}
+                    <img src={profile.photos.large ? profile.photos.large : placeholder}
+                         className={s.profile_pic} alt={'Profile picture'}/>
+                    {props.isOwner && <input type={'file'} onChange={ProfilePhotoSelected}/>}
+                    <div>
+                        <b>{profile.fullName}</b>
+                    </div>
+                    <div className={s.multiline}>
+                        <b>My status:</b>
+                        <ProfileStatus status={props.status} updateStatus={props.updateStatus}
+                                       setStatus={props.setStatus}/>
+                    </div>
+                    <div>
+                        <b>About me:</b> {profile.aboutMe || "Not set yet"}
+                    </div>
+                    <div>
+                        <div><b>Looking for a job:</b> {profile.lookingForAJob ? "Yes" : "No"}</div>
+                        <div><b>My professional skills:</b> {profile.lookingForAJobDescription}</div>
+                    </div>
+                    <div>
+                        <b>Contact me on:</b>
+                        <div>
+                            {getAllContacts()}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+
+    return <div>
+        {props.isOwner && !editMode && <button onClick={toggleEditMode}>Edit profile</button>}
+        {props.isOwner && editMode ? <ProfileForm profile={props.profile}/> : <ProfileData profile={props.profile}/>}
+    </div>
 }
 export default ProfileInfo

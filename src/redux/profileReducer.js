@@ -1,4 +1,5 @@
 import {profileAPI} from "../api/api";
+import store from "./reduxStore";
 
 const ADD_POST = 'profile/ADD_POST'
 const UPDATE_NEW_POST_TEXT = 'profile/UPDATE_NEW_POST_TEXT'
@@ -6,6 +7,7 @@ const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
 const SET_STATUS = 'profile/SET_STATUS'
 const DELETE_POST = 'profile/DELETE_POST'
 const SET_PHOTO_SUCCESS = 'profile/SET_PHOTO_SUCCESS'
+const UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS'
 
 let initialState = {
     profile: null,
@@ -83,13 +85,14 @@ export const setPhotoSuccess = (photos) => ({
     type: SET_PHOTO_SUCCESS,
     photos
 })
+
+export const updateProfileSuccess = (profile) => ({
+    type: UPDATE_PROFILE_SUCCESS,
+    payload: profile
+})
 export const getUserProfile = (userId) => async (dispatch) => {
-    if (!userId) {
-        userId = 29281
-    }
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(data))
-
 }
 export const setStatus = (text) => ({
     type: SET_STATUS,
@@ -110,5 +113,12 @@ export const savePhoto = (photo) => async (dispatch)=> {
     let data = await profileAPI.setPhoto(photo)
     if (data.resultCode === 0) {
         dispatch(setPhotoSuccess(data.data.photos))
+    }
+}
+
+export const updateProfileData = (profile) => async (dispatch) => {
+    let data = await profileAPI.updateProfileData(profile)
+    if (data.resultCode === 0) {
+        dispatch(getUserProfile(store.getState().auth.authUserId))
     }
 }

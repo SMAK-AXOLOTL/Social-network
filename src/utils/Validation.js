@@ -1,7 +1,4 @@
-import {authAPI} from "../api/api";
-
-
-export const syncValidate = values => {
+export const validateLogin = values => {
     const errors = {};
 
     if (!values.email) {
@@ -15,14 +12,28 @@ export const syncValidate = values => {
     return errors;
 };
 
-export const asyncValidate = values => {
-    authAPI.login(values.email, values.password, values.rememberMe).then(data => {
-            const errors = {}
-            if (data.resultCode === 1) {
-                errors.genericError = 'Incorrect E-mail or password'
-            }
-            return errors
-        }
-    )
+export const validateProfileInfo = values => {
+    const errors = {contacts: {}};
 
-}
+    if (!values.fullName) {
+        errors.fullName = 'Required';
+    }
+    if (!values.aboutMe) {
+        errors.aboutMe = 'Required'
+    }
+    if (!values.lookingForAJobDescription) {
+        errors.lookingForAJobDescription = 'Required'
+    }
+
+    Object.entries(values.contacts).map(([key, value]) => {
+        if ((value) && (!RegExp(`^https://${key}.com\/`).test(values.contacts[key]))) {
+            errors.contacts[key] = `Invalid URL format - ${key}`
+        }
+    })
+
+    if(Object.keys(errors).length === 1 && Object.keys(errors.contacts).length === 0){
+        return {}
+    }
+
+    return errors;
+};

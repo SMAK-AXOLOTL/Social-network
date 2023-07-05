@@ -7,8 +7,8 @@ import {TextInput} from "../../utils/FormComponents";
 
 const Messages = (props) => {
 
-    const dialogsMapped = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
-    const messagesMapped = props.messagesData.map(m => <MessageItem text={m.text}/>)
+    const dialogsMapped = props.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesMapped = props.messagesData.map(m => <MessageItem key={m.id} text={m.text}/>)
 
     return (
         <div className={s.dialogs}>

@@ -5,7 +5,7 @@ import {TextInput} from "../../../utils/FormComponents";
 import {Form, Formik} from "formik";
 
 const AllPosts = React.memo(props => {
-    const postsMapped = props.postsData.map(x => <Post message={x.message} rating={x.rating}/>)
+    const postsMapped = props.postsData.map(x => <Post key={x.id} message={x.message} rating={x.rating}/>)
 
     return (
         <div className={s.posts_block}>

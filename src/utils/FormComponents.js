@@ -2,7 +2,7 @@ import {useField} from "formik";
 import React from "react";
 import s from './FormComponents.module.css'
 
-//TODO empty input boxes after submission
+
 
 export const TextInput = ({label, handleBlur, ...props}) => {
     let [field, meta] = useField(props)

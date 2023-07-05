@@ -23,3 +23,8 @@
     width: 15em;
     border-radius: 10em;
 }
+
+.errorMessage{
+    color: red;
+    font-style: italic;
+}

@@ -116,9 +116,10 @@ export const savePhoto = (photo) => async (dispatch)=> {
     }
 }
 
-export const updateProfileData = (profile) => async (dispatch) => {
+export const updateProfileData = (profile, toggleEditMode) => async (dispatch) => {
     let data = await profileAPI.updateProfileData(profile)
     if (data.resultCode === 0) {
         dispatch(getUserProfile(store.getState().auth.authUserId))
+        toggleEditMode()
     }
 }

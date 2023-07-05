@@ -5,7 +5,7 @@ import s from './Login.module.css'
 import {connect} from "react-redux";
 import {login} from "../../redux/authReducer";
 import {Navigate} from "react-router-dom";
-import {syncValidate} from "../../utils/Validation";
+import {validateLogin} from "../../utils/Validation";
 
 
 const LoginForm = (props) => {
@@ -17,7 +17,7 @@ const LoginForm = (props) => {
             password: '',
             rememberMe: false
         }}
-        validate={syncValidate}
+        validate={validateLogin}
         onSubmit={(values, actions) => {
             props.login(values.email, values.password, values.rememberMe, (newStatus) => {
                 changeStatus(newStatus)

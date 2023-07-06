@@ -105,7 +105,7 @@ const ProfileInfo = (props) => {
                 <div>
                     <div>
                         <TextInput
-                            label={"Whats your full name? "}
+                            label={"Whats your full name?* "}
                             name={"fullName"}
                             type={"text"}
                             placeholder={profile.aboutMe}
@@ -113,7 +113,7 @@ const ProfileInfo = (props) => {
                     </div>
                     <div>
                         <TextInput
-                            label={"Tell us something about you: "}
+                            label={"Tell us something about you:* "}
                             name={"aboutMe"}
                             type={"text"}
                             placeholder={profile.aboutMe}
@@ -124,7 +124,7 @@ const ProfileInfo = (props) => {
                             Are you looking for a job?
                         </Checkbox>
                         <TextInput
-                            label={"Enter your desired job description: "}
+                            label={"Enter your desired job description:* "}
                             name={"lookingForAJobDescription"}
                             type={"text"}
                             placeholder={profile.lookingForAJobDescription}
@@ -182,6 +182,7 @@ const ProfileInfo = (props) => {
         </Formik>
     }
     const ProfileData = ({profile}) => {
+
         return (
             <div className={s.profile_block}>
                 <div>
@@ -194,7 +195,7 @@ const ProfileInfo = (props) => {
                     <div className={s.multiline}>
                         <b>My status:</b>
                         <ProfileStatus status={props.status} updateStatus={props.updateStatus}
-                                       setStatus={props.setStatus}/>
+                                      isOwner={props.isOwner}/>
                     </div>
                     <div>
                         <b>About me:</b> {profile.aboutMe || "Not set yet"}

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import s from './ProfileStatus.module.css'
 
-const ProfileStatus = ({status, updateStatus}) => {
+const ProfileStatus = ({status, updateStatus, isOwner}) => {
 
     let [editMode, setEditMode] = useState(false)
     let [localStatus, setLocalStatus] = useState(status)
@@ -11,7 +11,9 @@ const ProfileStatus = ({status, updateStatus}) => {
     }, [status])
 
     const activeEditMode = () => {
-        setEditMode(true)
+        if(isOwner){
+            setEditMode(true)
+        }
     }
 
     const deactiveEditMode = () => {
@@ -35,7 +37,6 @@ const ProfileStatus = ({status, updateStatus}) => {
                      value={localStatus}
             />
     }
-
     </div>
 }
 

@@ -1,12 +1,11 @@
 import React, {lazy, Suspense, useEffect} from "react";
-import s from './App.css';
+import './App.css'
 import Navbar from "./components/Navbar/Navbar";
-import {HashRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import MusicContainer from "./components/Music/MusicContainer";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Redirector from "./components/Common/Redirector";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/Common/Preloader/Preloader";
@@ -16,6 +15,7 @@ const UsersContainer = React.lazy(() => import("./components/Users/UsersContaine
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.jsx"))
 const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'))
 const Login = lazy(() => import("./components/Login/Login"))
+
 const App = props => {
 
     useEffect(() => {
@@ -43,7 +43,8 @@ const App = props => {
                             <Route path='/settings' element={<Settings/>}/>
 
                             <Route path='/login' element={<Login/>}/>
-                            <Route path='' element={<Redirector to={'/profile'}/>}/>
+
+                            <Route path='' element={<Navigate to={"/profile/"}/>}/>
                         </Routes>
                     </Suspense>
                 </div>

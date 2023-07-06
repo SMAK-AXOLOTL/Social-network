@@ -15,11 +15,12 @@ const LoginForm = (props) => {
         initialValues={{
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captchaText: ''
         }}
         validate={validateLogin}
         onSubmit={(values, actions) => {
-            props.login(values.email, values.password, values.rememberMe, (newStatus) => {
+            props.login(values.email, values.password, values.rememberMe, values.captchaText, (newStatus) => {
                 changeStatus(newStatus)
             })
             actions.setFieldValue('password', '')
@@ -40,6 +41,15 @@ const LoginForm = (props) => {
             <Checkbox name='rememberMe'>
                 Remember me?
             </Checkbox>
+            {props.captchaUrl && <div>
+                <img src={props.captchaUrl} alt={"captcha code"}/>
+                <TextInput
+                    label='Captcha - '
+                    name='captchaText'
+                    type='text'
+                    placeholder='Enter CAPTCHA code here'
+                />
+            </div>}
             <div>
                 {status}
             </div>
@@ -50,7 +60,7 @@ const LoginForm = (props) => {
     </Formik>
 }
 
-const Login = ({isAuth, login}) => {
+const Login = ({isAuth, login, captchaUrl}) => {
     if (isAuth) {
         return <Navigate to={'/profile'}/>
     }
@@ -60,7 +70,7 @@ const Login = ({isAuth, login}) => {
                 Login
             </h1>
             <div>
-                <LoginForm login={login}/>
+                <LoginForm login={login} captchaUrl={captchaUrl}/>
             </div>
         </div>
         <div className={s.loginInfo}>
@@ -75,6 +85,7 @@ const Login = ({isAuth, login}) => {
 };
 
 const mapStateToProps = (state) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
     isAuthErrorToggled: state.auth.isAuthErrorToggled
 })

@@ -1,4 +1,4 @@
-import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
+import {addMessage, updateNewMessageText} from "../../redux/messagesReducer.ts";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 import React from "react";

@@ -7,9 +7,9 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect, Provider} from "react-redux";
-import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/Common/Preloader/Preloader";
 import store from "./redux/reduxStore";
+import {initializeApp} from "./redux/appReducer";
 
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.jsx"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.jsx"))

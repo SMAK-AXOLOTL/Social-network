@@ -1,11 +1,16 @@
 const ADD_MESSAGE = 'messages/ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'messages/UPDATE-NEW-MESSAGE-TEXT'
+type AddMessageActionType = {
+    type: typeof ADD_MESSAGE
+}
 
-let initialState = {
-    _newMessageText: '',
-    getNewMessageText() {
-        return this._newMessageText
-    },
+const UPDATE_NEW_MESSAGE_TEXT = 'messages/UPDATE-NEW-MESSAGE-TEXT'
+type UpdateNewMessageTextActionType = {
+    type: typeof UPDATE_NEW_MESSAGE_TEXT,
+    payload: string
+}
+
+const initialState: InitialStateType = {
+    _newMessageText: "",
     dialogsData: [
         {id: 1, name: 'Серега'},
         {id: 2, name: 'Андрей'},
@@ -25,12 +30,18 @@ let initialState = {
     ]
 }
 
-export const messagesReducer = (state = initialState, action) => {
+export type InitialStateType = {
+    _newMessageText: string
+    dialogsData: {id: number, name: string}[]
+    messagesData: {id: number, text: string}[]
+}
+
+export const messagesReducer = (state: InitialStateType = initialState, action: AddMessageActionType | UpdateNewMessageTextActionType): InitialStateType=> {
     switch (action.type) {
         case ADD_MESSAGE: {
             return {
                 ...state,
-                messagesData: [...state.messagesData, {id: 7, text: state.getNewMessageText()}],
+                messagesData: [...state.messagesData, {id: 7, text: state._newMessageText}],
                 _newMessageText: ''
             }
         }
@@ -47,10 +58,11 @@ export const messagesReducer = (state = initialState, action) => {
 }
 
 
-export const addMessage = () => ({
-    type: ADD_MESSAGE
+export const addMessage = ():AddMessageActionType => ({
+        type: ADD_MESSAGE
 })
-export const updateNewMessageText = (text) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    payload: text
+
+export const updateNewMessageText = (text: string):UpdateNewMessageTextActionType => ({
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        payload: text
 })

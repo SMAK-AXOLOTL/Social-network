@@ -1,14 +1,12 @@
 const ADD_MESSAGE = 'messages/ADD-MESSAGE'
-type AddMessageActionType = {
-    type: typeof ADD_MESSAGE
-}
 
 const UPDATE_NEW_MESSAGE_TEXT = 'messages/UPDATE-NEW-MESSAGE-TEXT'
-type UpdateNewMessageTextActionType = {
-    type: typeof UPDATE_NEW_MESSAGE_TEXT,
-    payload: string
-}
 
+export type InitialStateType = {
+    _newMessageText: string
+    dialogsData: {id: number, name: string}[]
+    messagesData: {id: number, text: string}[]
+}
 const initialState: InitialStateType = {
     _newMessageText: "",
     dialogsData: [
@@ -28,12 +26,6 @@ const initialState: InitialStateType = {
         {id: 5, text: 'Chop-Chop'},
         {id: 6, text: 'Bath in holy flames'},
     ]
-}
-
-export type InitialStateType = {
-    _newMessageText: string
-    dialogsData: {id: number, name: string}[]
-    messagesData: {id: number, text: string}[]
 }
 
 export const messagesReducer = (state: InitialStateType = initialState, action: AddMessageActionType | UpdateNewMessageTextActionType): InitialStateType=> {
@@ -57,11 +49,17 @@ export const messagesReducer = (state: InitialStateType = initialState, action: 
     }
 }
 
-
+type AddMessageActionType = {
+    type: typeof ADD_MESSAGE
+}
 export const addMessage = ():AddMessageActionType => ({
         type: ADD_MESSAGE
 })
 
+type UpdateNewMessageTextActionType = {
+    type: typeof UPDATE_NEW_MESSAGE_TEXT,
+    payload: string
+}
 export const updateNewMessageText = (text: string):UpdateNewMessageTextActionType => ({
         type: UPDATE_NEW_MESSAGE_TEXT,
         payload: text

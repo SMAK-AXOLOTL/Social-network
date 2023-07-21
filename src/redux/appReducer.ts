@@ -1,17 +1,12 @@
 import {getAuthUserData} from "./authReducer";
 
 const SET_INITIALIZED = 'app/SET_INITIALIZED'
-export type SetInitializedActionType = {
-    type: typeof SET_INITIALIZED
-}
-
-
-let initialState: InitialStateType = {
-    initialized: false
-}
 
 type InitialStateType = {
     initialized: boolean
+}
+let initialState: InitialStateType = {
+    initialized: false
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: SetInitializedActionType):InitialStateType => {
@@ -26,6 +21,9 @@ export const appReducer = (state: InitialStateType = initialState, action: SetIn
     }
 }
 
+export type SetInitializedActionType = {
+    type: typeof SET_INITIALIZED
+}
 export const setInitialized = ():SetInitializedActionType => ({
     type: SET_INITIALIZED
 })

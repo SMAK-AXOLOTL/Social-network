@@ -14,25 +14,9 @@ type SetUserDataActionType = {
 }
 
 const TOGGLE_AUTH_IS_FETCHING = 'auth/TOGGLE_AUTH_IS_FETCHING'
-type ToggleAuthIsFetchingActionType = {
-    type: typeof TOGGLE_AUTH_IS_FETCHING
-    payload: boolean
-}
 
 const SET_CAPTCHA_URL = 'auth/SET_CAPTCHA_URL'
-type SetCaptchaUrlActionType = {
-    type: typeof SET_CAPTCHA_URL
-    payload: string
-}
 
-const initialState: InitialStateType = {
-    authUserId: null,
-    email: null,
-    login: null,
-    isFetching: false,
-    isAuth: false,
-    captchaUrl: null
-}
 type InitialStateType = {
     authUserId: number | null
     email: string | null
@@ -41,6 +25,15 @@ type InitialStateType = {
     isAuth: boolean
     captchaUrl: string | null
 }
+const initialState: InitialStateType = {
+    authUserId: null,
+    email: null,
+    login: null,
+    isFetching: false,
+    isAuth: false,
+    captchaUrl: null
+}
+
 
 export const authReducer = (state: InitialStateType = initialState, action: SetUserDataActionType | ToggleAuthIsFetchingActionType| SetCaptchaUrlActionType): InitialStateType => {
     switch (action.type) {
@@ -76,11 +69,20 @@ const setAuthUserData = (id: number | null, email: string | null, login: string 
         isAuth: isAuth
     }
 })
+
+type ToggleAuthIsFetchingActionType = {
+    type: typeof TOGGLE_AUTH_IS_FETCHING
+    payload: boolean
+}
 const toggleAuthIsFetching = (isFetching: boolean):ToggleAuthIsFetchingActionType => ({
     type: TOGGLE_AUTH_IS_FETCHING,
     payload: isFetching
 })
 
+type SetCaptchaUrlActionType = {
+    type: typeof SET_CAPTCHA_URL
+    payload: string
+}
 const setCaptchaUrl = (captchaUrl: string):SetCaptchaUrlActionType => ({
     type: SET_CAPTCHA_URL,
     payload: captchaUrl

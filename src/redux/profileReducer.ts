@@ -9,7 +9,14 @@ const DELETE_POST = 'profile/DELETE_POST'
 const SET_PHOTO_SUCCESS = 'profile/SET_PHOTO_SUCCESS'
 const UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS'
 
-let initialState = {
+
+type initialStateType = {
+    profile: {} | null
+    postsData: {id: number, message: string, rating: number}[]
+    _newPostText: string
+    status: string
+}
+let initialState: initialStateType = {
     profile: null,
     postsData: [
         {id: 1, message: 'I\'m scared', rating: 0},
@@ -22,7 +29,7 @@ let initialState = {
     status: ''
 }
 
-export const profileReducer = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action:any):initialStateType => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -64,59 +71,89 @@ export const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => ({
+type addPostActionType = {
+    type: typeof ADD_POST
+}
+export const addPostActionCreator = ():addPostActionType => ({
     type: ADD_POST
 })
-export const updateNewPostTextActionCreator = (text) => ({
+
+type updateNewPostTextActionType = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    payload: string
+}
+export const updateNewPostTextActionCreator = (text: string): updateNewPostTextActionType => ({
     type: UPDATE_NEW_POST_TEXT,
     payload: text
 })
-export const deletePost = (postId) => ({
+
+type deletePostActionType = {
+    type: typeof DELETE_POST
+    payload: number
+}
+export const deletePost = (postId: number): deletePostActionType => ({
     type: DELETE_POST,
     payload: postId
 })
 
-export const setUserProfile = (text) => ({
+type setUserProfileActionType = {
+    type: typeof SET_USER_PROFILE
+    payload: {}
+}
+export const setUserProfile = (text: {}):setUserProfileActionType => ({
     type: SET_USER_PROFILE,
     payload: text
 })
 
-export const setPhotoSuccess = (photos) => ({
+type setPhotoSuccessActionType = {
+    type: typeof SET_PHOTO_SUCCESS
+    photos: string[]
+}
+export const setPhotoSuccess = (photos: string[]):setPhotoSuccessActionType => ({
     type: SET_PHOTO_SUCCESS,
     photos
 })
 
-export const updateProfileSuccess = (profile) => ({
+type updateProfileSuccessActionType = {
+    type: typeof UPDATE_PROFILE_SUCCESS
+    payload: {}
+}
+export const updateProfileSuccess = (profile: {}): updateProfileSuccessActionType => ({
     type: UPDATE_PROFILE_SUCCESS,
     payload: profile
 })
-export const getUserProfile = (userId) => async (dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: any) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(data))
 }
-export const setStatus = (text) => ({
+
+type setStatusActionType = {
+    type: typeof SET_STATUS
+    payload: string
+}
+export const setStatus = (text: string): setStatusActionType => ({
     type: SET_STATUS,
     payload: text
 })
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
     let data = await profileAPI.getStatus(userId)
     dispatch(setStatus(data))
 }
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
 
-export const savePhoto = (photo) => async (dispatch)=> {
+export const savePhoto = (photo: File) => async (dispatch: any)=> {
     let data = await profileAPI.setPhoto(photo)
     if (data.resultCode === 0) {
         dispatch(setPhotoSuccess(data.data.photos))
     }
 }
 
-export const updateProfileData = (profile, toggleEditMode) => async (dispatch) => {
+export const updateProfileData = (profile: {}, toggleEditMode: Function) => async (dispatch: any) => {
     let data = await profileAPI.updateProfileData(profile)
     if (data.resultCode === 0) {
         dispatch(getUserProfile(store.getState().auth.authUserId))

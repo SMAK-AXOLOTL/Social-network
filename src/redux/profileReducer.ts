@@ -122,7 +122,7 @@ export const updateProfileSuccess = (profile: {}): updateProfileSuccessActionTyp
     type: UPDATE_PROFILE_SUCCESS,
     payload: profile
 })
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
+export const getUserProfile = (userId: number | null) => async (dispatch: any) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(data))
 }

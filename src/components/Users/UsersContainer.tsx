@@ -7,30 +7,45 @@ import {
 import React, {useEffect} from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
+import {appStateType} from "../../redux/reduxStore";
+import {userType} from "../../types/types";
+
+type PropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    isFollowing: Array<number>
+    totalUsers: number
+    users: Array<userType>
 
 
-const UsersContainer = props => {
+    setCurrentPage: (pageNumber: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+const UsersContainer: React.FC<PropsType> = props => {
 
     useEffect(() => {
         props.getUsers(props.currentPage, props.pageSize)
-    },[])
+    }, [])
 
-    const onPageSelectorClick = (selectedPage) => {
+    const onPageSelectorClick = (selectedPage: number) => {
         props.setCurrentPage(selectedPage)
         props.getUsers(selectedPage, props.pageSize)
     }
 
-        return <>
-            {props.isFetching
-                ? <Preloader/>
-                : <Users
-                    {...props}
-                    onPageSelectorClick={onPageSelectorClick}
-                />}
-        </>
+    return <>
+        {props.isFetching
+            ? <Preloader/>
+            : <Users
+                {...props}
+                onPageSelectorClick={onPageSelectorClick}
+            />}
+    </>
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: appStateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

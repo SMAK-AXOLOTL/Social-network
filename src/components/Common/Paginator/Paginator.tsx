@@ -1,10 +1,17 @@
 import React from 'react'
 import s from "./Paginator.module.css";
 
-const Paginator = ({totalUsers, pageSize, currentPage, onPageSelectorClick}) => {
+type PropsType = {
+    totalItems: number
+    pageSize: number
+    currentPage: number
+    onPageSelectorClick: (pageNumber: number) => void
+}
 
-    let pagesCount = Math.ceil(totalUsers / pageSize)
-    let pages = []
+const Paginator: React.FC<PropsType> = ({totalItems, pageSize, currentPage, onPageSelectorClick}) => {
+
+    let pagesCount = Math.ceil(totalItems / pageSize)
+    let pages: Array<number> = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
@@ -51,7 +58,7 @@ const Paginator = ({totalUsers, pageSize, currentPage, onPageSelectorClick}) => 
                 placeholder={'Go to page#'}
                 onKeyDown={ e => {
                     if (e.key === 'Enter'){
-                        onPageSelectorClick(e.currentTarget.value)
+                        onPageSelectorClick(Number(e.currentTarget.value))
                     }
                 }}
             />

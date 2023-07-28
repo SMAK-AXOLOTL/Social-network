@@ -11,7 +11,7 @@ import Preloader from "./components/Common/Preloader/Preloader";
 import store from "./redux/reduxStore";
 import {initializeApp} from "./redux/appReducer";
 
-const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.jsx"))
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.tsx"))
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.jsx"))
 const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'))
 const Login = lazy(() => import("./components/Login/Login"))

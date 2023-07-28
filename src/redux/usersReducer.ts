@@ -12,14 +12,14 @@ const TOGGLE_IS_FOLLOWING = 'users/TOGGLE_IS_FOLLOWING'
 
 
 type initialStateType = {
-    users: userType[]
-    pageSize: number,
-    totalUsers: number,
-    currentPage: number,
-    isFetching: boolean,
-    isFollowing: number[]
+    users: Array<userType>
+    pageSize: number
+    totalUsers: number
+    currentPage: number
+    isFetching: boolean
+    isFollowing: Array<number>
 }
-let initialState = {
+let initialState: initialStateType = {
     users: [],
     pageSize: 5,
     totalUsers: 0,
@@ -27,7 +27,6 @@ let initialState = {
     isFetching: false,
     isFollowing: []
 }
-
 export const usersReducer = (state = initialState, action:any):initialStateType => {
     switch (action.type) {
         case FOLLOW: {
@@ -97,9 +96,9 @@ export const confirmUnfollow = (userId:number):confirmUnfollowActionType => ({
 
 type setUsersActionType = {
     type: typeof SET_USERS
-    payload: {}[]
+    payload: Array<userType>
 }
-export const setUsers = (users:userType[]):setUsersActionType => ({
+export const setUsers = (users: userType[]): setUsersActionType => ({
     type: SET_USERS,
     payload: users
 })
@@ -146,7 +145,7 @@ export const toggleIsFollowing = (isFollowing: boolean, userId: number): toggleI
     }
 })
 
-export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+export const getUsers = (currentPage: number = 1, pageSize: number = 5) => async (dispatch: any) => {
     dispatch(toggleIsFetching(true))
     try {
         let data = await usersAPI.getUsers(currentPage, pageSize)
@@ -157,7 +156,7 @@ export const getUsers = (currentPage: number, pageSize: number) => async (dispat
     }
 }
 
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: Function, actionCreator: Function) => {
+const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowing(true, userId))
     try {
         let data = await apiMethod(userId)

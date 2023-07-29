@@ -4,11 +4,11 @@ import s from './FormComponents.module.css'
 
 
 
-export const TextInput = ({label, handleBlur, ...props}) => {
+export const TextInput = ({label = "", ...props}) => {
     let [field, meta] = useField(props)
     return <div>
         <label htmlFor={props.id || props.name}>{label}</label>
-        <input className={s.textInput} onBlur={handleBlur} {...field} {...props}/>
+        <input className={s.textInput} {...field} {...props}/>
         {meta.touched && meta.error && <div className={s.textInputErrorMessage}> {meta.error} </div>}
     </div>
 }

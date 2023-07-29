@@ -1,9 +1,7 @@
 import {connect} from "react-redux";
-import {
-    follow, getUsers,
+import {follow, getUsers,
     setCurrentPage,
-    unfollow
-} from "../../redux/usersReducer";
+    unfollow} from "../../redux/usersReducer";
 import React, {useEffect} from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
@@ -18,14 +16,12 @@ type PropsType = {
     totalUsers: number
     users: Array<userType>
 
-
     setCurrentPage: (pageNumber: number) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
 }
-const UsersContainer: React.FC<PropsType> = props => {
-
+const UsersContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.getUsers(props.currentPage, props.pageSize)
     }, [])

@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {Form, Formik} from "formik";
-import {Checkbox, TextInput} from "../../utils/FormComponents";
-import s from './Login.module.css'
-import {connect} from "react-redux";
-import {login} from "../../redux/authReducer";
-import {Navigate} from "react-router-dom";
 import {validateLogin} from "../../utils/Validation";
+import {Checkbox, TextInput} from "../../utils/FormComponents";
 
+type PropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captchaText: string, callback: (arg: string) => void) => void
+    captchaUrl: string | null
+}
 
-const LoginForm = (props) => {
+const LoginForm: React.FC<PropsType> = (props) => {
     const [status, changeStatus] = useState('')
 
     return <Formik
@@ -59,35 +59,4 @@ const LoginForm = (props) => {
         </Form>
     </Formik>
 }
-
-const Login = ({isAuth, login, captchaUrl}) => {
-    if (isAuth) {
-        return <Navigate to={'/profile'}/>
-    }
-    return <div className={s.container}>
-        <div className={s.content}>
-            <h1>
-                Login
-            </h1>
-            <div>
-                <LoginForm login={login} captchaUrl={captchaUrl}/>
-            </div>
-        </div>
-        <div className={s.loginInfo}>
-            <div>
-                You can test the site with this login information:
-            </div>
-            <div>Email: free@samuraijs.com
-
-                Password: free</div>
-        </div>
-    </div>
-};
-
-const mapStateToProps = (state) => ({
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth,
-    isAuthErrorToggled: state.auth.isAuthErrorToggled
-})
-
-export default connect(mapStateToProps, {login})(Login)
+export default LoginForm

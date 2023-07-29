@@ -5,7 +5,7 @@
     gap: 10px 10px;
     grid-auto-flow: row;
     grid-template-areas:
-    "i n d";
+    "i f d";
 }
 
 .imgBox {
@@ -15,11 +15,12 @@
 }
 
 .infoBox {
-    grid-area: n;
+    grid-area: f;
     display: grid;
     grid-template:
     "n n"
-    "p a";
+    "p ."
+    "a .";
     justify-content: start;
 }
 

@@ -1,5 +1,6 @@
 import {profileAPI} from "../api/api";
 import store from "./reduxStore";
+import {profileType} from "../types/types";
 
 const ADD_POST = 'profile/ADD_POST'
 const UPDATE_NEW_POST_TEXT = 'profile/UPDATE_NEW_POST_TEXT'
@@ -11,7 +12,7 @@ const UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS'
 
 
 type initialStateType = {
-    profile: {} | null
+    profile: profileType | null
     postsData: {id: number, message: string, rating: number}[]
     _newPostText: string
     status: string
@@ -61,9 +62,7 @@ export const profileReducer = (state = initialState, action:any):initialStateTyp
                 postsData: state.postsData.filter(post => post.id !== action.payload)
             }
         case SET_PHOTO_SUCCESS:
-            return {
-                ...state,
-                profile: {...state.profile, photos: action.photos}
+            return {...state, profile: {...state.profile, photos: action.photos}
             }
         default: {
             return state
@@ -111,7 +110,7 @@ type setPhotoSuccessActionType = {
 }
 export const setPhotoSuccess = (photos: string[]):setPhotoSuccessActionType => ({
     type: SET_PHOTO_SUCCESS,
-    photos
+    photos: photos
 })
 
 type updateProfileSuccessActionType = {

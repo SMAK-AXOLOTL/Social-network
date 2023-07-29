@@ -1,16 +1,12 @@
-import {addMessage, updateNewMessageText} from "../../redux/messagesReducer.ts";
+import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 import React from "react";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {appStateType} from "../../redux/reduxStore";
 
-
-const MessagesContainer = props => {
-        return <Messages {...props}/>
-}
-
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: appStateType) => {
     return {
         dialogsData: state.messagesPage.dialogsData,
         messagesData: state.messagesPage.messagesData,
@@ -18,7 +14,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+
+export default compose<any>(
     connect(mapStateToProps, {addMessage, updateNewMessageText}),
     withAuthRedirect
-)(MessagesContainer)
+)(Messages)

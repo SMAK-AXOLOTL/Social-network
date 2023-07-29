@@ -12,7 +12,7 @@ import store from "./redux/reduxStore";
 import {initializeApp} from "./redux/appReducer";
 
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.tsx"))
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.jsx"))
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.tsx"))
 const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'))
 const Login = lazy(() => import("./components/Login/Login"))
 

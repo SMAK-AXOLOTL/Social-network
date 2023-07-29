@@ -3,7 +3,7 @@ import s from './Navbar.module.css'
 import NavbarItem from "./NavbarItem/NavbarItem";
 
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     return (<div className={s.navBar}>
             <nav className={s.nav}>
                 <NavbarItem address='profile/' itemName='Profile'/>
@@ -17,7 +17,6 @@ const Navbar = () => {
                 <br/>
                 <br/>
             </nav>
-            {/*<FriendsBlock dialogs={props.dialogs}/>*/}
         </div>
     )
 }

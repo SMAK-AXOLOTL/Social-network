@@ -5,7 +5,16 @@ import MessageItem from "./MessageItem/MessageItem";
 import {Form, Formik} from "formik";
 import {TextInput} from "../../utils/FormComponents";
 
-const Messages = (props) => {
+type PropsType = {
+    dialogsData: { id: number, name: string }[]
+    messagesData: { id: number, text: string }[]
+    newMessageText: string
+
+    updateNewMessageText: (text: string) => void
+    addMessage: () => void
+}
+
+const Messages: React.FC<PropsType> = (props) => {
 
     const dialogsMapped = props.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     const messagesMapped = props.messagesData.map(m => <MessageItem key={m.id} text={m.text}/>)
@@ -22,7 +31,6 @@ const Messages = (props) => {
                         newMessageText: props.newMessageText
                     }}
                     onSubmit={(values, actions) => {
-                        props.updateNewMessageText(values.newMessageText)
                         props.addMessage()
                         actions.setFieldValue('newMessageText', '')
                     }}
@@ -31,8 +39,8 @@ const Messages = (props) => {
                         <TextInput
                             name={'newMessageText'}
                             placeholder={'Enter message here!'}
-                            onBlur={e => {
-                                props.updateNewMessageText(e.target.value)
+                            onBlur={(e:React.FormEvent<HTMLInputElement>) => {
+                                props.updateNewMessageText(e.currentTarget.value)
                             }}
                         />
                         <button>Send</button>

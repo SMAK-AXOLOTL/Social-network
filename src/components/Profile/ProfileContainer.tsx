@@ -13,27 +13,33 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {withRouter} from "../../hoc/withRouter";
 import {compose} from "redux";
 import {useParams} from "react-router-dom";
+import {appStateType} from "../../redux/reduxStore";
 
+type PropsType = {
+    userId: number
 
-const ProfileContainer = props => {
+    getUserProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+}
+const ProfileContainer: React.FC<PropsType> = (props) => {
 
     let {userId} = useParams()
 
     useEffect(() => {
-        const fetchData = async (userId) => {
+        const fetchData = async (userId: number) => {
             props.getUserProfile(userId)
             props.getStatus(userId)
         }
 
-        fetchData(userId ? userId : props.userId)
+        fetchData(Number(userId) ? Number(userId) : props.userId)
     }, [userId])
 
     return <div>
-        <Profile isOwner={!userId} {...props}/>
+        <Profile isOwner={!Number(userId)} {...props}/>
     </div>
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: appStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     userId: state.auth.authUserId

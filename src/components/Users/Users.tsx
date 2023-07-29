@@ -15,7 +15,7 @@ type PropsType = {
     users: Array<userType>
 }
 
-let Users: React.FC<PropsType> = ({
+const Users: React.FC<PropsType> = ({
                  totalUsers, pageSize, currentPage,
                  onPageSelectorClick, follow, unfollow,
                  isFollowing, users

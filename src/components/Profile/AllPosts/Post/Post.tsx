@@ -1,13 +1,19 @@
 import React, {useState} from "react";
 import s from './Post.module.css'
 
-const Post = (props) => {
+type PropsType = {
+    id: number
+    message: string
+    rating: number
+    deletePost: (id: number) => void
+}
+
+const Post: React.FC<PropsType> = (props) => {
     let [currentRating, setCurrentRating] = useState(props.rating)
     let [isRatedWith, RateWith] = useState(0)
 
-
     function likePost() {
-        switch (isRatedWith){
+        switch (isRatedWith) {
             case 1:
                 setCurrentRating(currentRating - 1)
                 RateWith(0)
@@ -20,7 +26,7 @@ const Post = (props) => {
     }
 
     function dislikePost() {
-        switch (isRatedWith){
+        switch (isRatedWith) {
             case -1:
                 setCurrentRating(currentRating + 1)
                 RateWith(0)
@@ -34,7 +40,7 @@ const Post = (props) => {
 
     return (
         <div className={s.item}>
-            <img src='https://cs6.pikabu.ru/avatars/377/v377504.jpg?329968686'></img>
+            <img alt={"profile pic"} src='https://cs6.pikabu.ru/avatars/377/v377504.jpg?329968686'></img>
             {props.message}
             <div>
                 <button className={s.like} onClick={likePost}>
@@ -47,6 +53,7 @@ const Post = (props) => {
                     Dislike
                 </button>
             </div>
+            <button onClick={() => props.deletePost(props.id)}>Delete Post</button>
         </div>
     )
 }

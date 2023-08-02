@@ -34,7 +34,7 @@ const App = props => {
                 <div className='app_wrapper_content'>
                     <Suspense fallback={<div><Preloader/></div>}>
                         <Routes>
-                            <Route path='/messages/*' element={<MessagesContainer />}/>
+                            <Route path='/messages/*' element={<MessagesContainer/>}/>
                             <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
                             <Route path='/music' element={<MusicContainer/>}/>
                             <Route path='/news' element={<News/>}/>

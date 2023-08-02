@@ -14,12 +14,19 @@ import {withRouter} from "../../hoc/withRouter";
 import {compose} from "redux";
 import {useParams} from "react-router-dom";
 import {appStateType} from "../../redux/reduxStore";
+import {profileType} from "../../types/types";
 
 type PropsType = {
     userId: number
+    profile: profileType
+    status: string
 
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
+    setStatus: (status: string) => void
+    savePhoto: (photo: File) => void
+    updateProfileData: (profile: profileType, toggleEditMode: Function) => void
 }
 const ProfileContainer: React.FC<PropsType> = (props) => {
 

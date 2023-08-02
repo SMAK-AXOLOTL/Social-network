@@ -1,17 +1,22 @@
 import React, {useEffect, useState} from 'react'
-import s from './ProfileStatus.module.css'
 
-const ProfileStatus = ({status, updateStatus, isOwner}) => {
+type PropsType = {
+    isOwner: boolean
+    status: string
+    updateStatus: (status: string) => void
+}
+
+const ProfileStatus: React.FC<PropsType> = ({status, updateStatus, isOwner}) => {
 
     let [editMode, setEditMode] = useState(false)
     let [localStatus, setLocalStatus] = useState(status)
 
-    useEffect( () => {
+    useEffect(() => {
         setLocalStatus(status)
     }, [status])
 
     const activeEditMode = () => {
-        if(isOwner){
+        if (isOwner) {
             setEditMode(true)
         }
     }
@@ -21,17 +26,13 @@ const ProfileStatus = ({status, updateStatus, isOwner}) => {
         updateStatus(localStatus)
     }
 
-    const onStatusChange = (e) => {
+    const onStatusChange = (e: React.FormEvent<HTMLInputElement>) => {
         setLocalStatus(e.currentTarget.value)
     }
 
     return <div>{
         !editMode
-            ? <span
-                onDoubleClick={activeEditMode}
-            >
-                {status || 'User haven\'t set status yet'}
-                </span>
+            ? <span onDoubleClick={activeEditMode}>{status || 'User haven\'t set status yet'}</span>
             : <input name={'status'} autoFocus={true}
                      onBlur={deactiveEditMode} onChange={onStatusChange}
                      value={localStatus}

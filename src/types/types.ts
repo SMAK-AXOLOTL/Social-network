@@ -11,6 +11,7 @@ export type userType = {
 
 export type profileType = {
     userId: number
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -25,7 +26,13 @@ export type profileType = {
     }
 
     photos: {
-        small: string
-        large: string
+        small?: string
+        large?: string
     }
+}
+
+export type postType = {
+    id: number
+    message: string
+    rating: number
 }

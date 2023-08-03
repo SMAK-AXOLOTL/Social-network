@@ -1,6 +1,7 @@
 import {profileAPI} from "../api/api";
-import store from "./reduxStore";
-import {profileType} from "../types/types";
+import store, {appStateType} from "./reduxStore";
+import {photosType, profileType} from "../types/types";
+import {ThunkAction} from "redux-thunk";
 
 
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
@@ -29,12 +30,17 @@ let initialState: initialStateType = {
             website: '',
             youtube: '',
         },
-        photos: {}
+        photos: {
+            small: null,
+            large: null
+        }
     },
     status: ''
 }
 
-export const profileReducer = (state = initialState, action: any): initialStateType => {
+type ActionType = setUserProfileActionType | setPhotoSuccessActionType | updateProfileSuccessActionType | setStatusActionType
+
+export const profileReducer = (state = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
         case SET_USER_PROFILE:
             return {
@@ -59,18 +65,18 @@ export const profileReducer = (state = initialState, action: any): initialStateT
 
 type setUserProfileActionType = {
     type: typeof SET_USER_PROFILE
-    payload: {}
+    payload: profileType
 }
-export const setUserProfile = (text: {}): setUserProfileActionType => ({
+export const setUserProfile = (profile: profileType): setUserProfileActionType => ({
     type: SET_USER_PROFILE,
-    payload: text
+    payload: profile
 })
 
 type setPhotoSuccessActionType = {
     type: typeof SET_PHOTO_SUCCESS
-    photos: string[]
+    photos: photosType
 }
-export const setPhotoSuccess = (photos: string[]): setPhotoSuccessActionType => ({
+export const setPhotoSuccess = (photos: photosType): setPhotoSuccessActionType => ({
     type: SET_PHOTO_SUCCESS,
     photos: photos
 })
@@ -79,13 +85,15 @@ type updateProfileSuccessActionType = {
     type: typeof UPDATE_PROFILE_SUCCESS
     payload: {}
 }
-export const updateProfileSuccess = (profile: {}): updateProfileSuccessActionType => ({
+export const updateProfileSuccess = (profile: profileType): updateProfileSuccessActionType => ({
     type: UPDATE_PROFILE_SUCCESS,
     payload: profile
 })
 export const getUserProfile = (userId: number | null) => async (dispatch: any) => {
-    let data = await profileAPI.getProfile(userId)
-    dispatch(setUserProfile(data))
+    if (userId){
+        let data = await profileAPI.getProfile(userId)
+        dispatch(setUserProfile(data))
+    }
 }
 
 type setStatusActionType = {
@@ -96,28 +104,30 @@ export const setStatus = (text: string): setStatusActionType => ({
     type: SET_STATUS,
     payload: text
 })
-export const getStatus = (userId: number) => async (dispatch: any) => {
+
+type ThunkType = ThunkAction<Promise<void>, appStateType, any, ActionType>
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
     let data = await profileAPI.getStatus(userId)
     dispatch(setStatus(data))
 }
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
 
-export const savePhoto = (photo: File) => async (dispatch: any) => {
+export const savePhoto = (photo: File): ThunkType => async (dispatch) => {
     let data = await profileAPI.setPhoto(photo)
     if (data.resultCode === 0) {
         dispatch(setPhotoSuccess(data.data.photos))
     }
 }
 
-export const updateProfileData = (profile: profileType, toggleEditMode: Function) => async (dispatch: any) => {
+export const updateProfileData = (profile: profileType, toggleEditMode: Function): ThunkType => async (dispatch) => {
     let data = await profileAPI.updateProfileData(profile)
     if (data.resultCode === 0) {
-        dispatch(getUserProfile(store.getState().auth.authUserId))
+        await dispatch(getUserProfile(store.getState().auth.authUserId))
         toggleEditMode()
     }
 }

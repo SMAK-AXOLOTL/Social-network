@@ -28,7 +28,9 @@ const initialState: InitialStateType = {
     ]
 }
 
-export const messagesReducer = (state: InitialStateType = initialState, action: AddMessageActionType | UpdateNewMessageTextActionType): InitialStateType=> {
+type ActionType = AddMessageActionType | UpdateNewMessageTextActionType
+
+export const messagesReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType=> {
     switch (action.type) {
         case ADD_MESSAGE: {
             return {

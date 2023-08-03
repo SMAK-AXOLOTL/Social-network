@@ -25,14 +25,16 @@ export type profileType = {
         youtube: string
     }
 
-    photos: {
-        small?: string
-        large?: string
-    }
+    photos: photosType
 }
 
 export type postType = {
     id: number
     message: string
     rating: number
+}
+
+export type photosType = {
+    small: string | null
+    large: string | null
 }

@@ -3,10 +3,10 @@ import s from './AllPosts.module.css'
 import Post from "./Post/Post";
 import {TextInput} from "../../../utils/FormComponents";
 import {Form, Formik} from "formik";
-import {postType} from "../../../types/types";
+import {PostType} from "../../../types/types";
 
 const AllPosts: React.FC = () => {
-    let [postsData, setPosts] = useState<postType[]>(
+    let [postsData, setPosts] = useState<PostType[]>(
         [
             {id: 1, message: 'I\'m scared', rating: 0},
             {id: 2, message: 'Am I alone here?', rating: 0},

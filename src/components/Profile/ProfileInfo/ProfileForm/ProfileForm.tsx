@@ -2,12 +2,12 @@ import {Form, Formik} from "formik";
 import {validateProfileInfo} from "../../../../utils/Validation";
 import {Checkbox, TextInput} from "../../../../utils/FormComponents";
 import React from "react";
-import {profileType} from "../../../../types/types";
+import {ProfileType} from "../../../../types/types";
 
 type PropsType = {
-    profile: profileType
+    profile: ProfileType
 
-    updateProfileData: (profile: profileType, toggleEditMode: Function) => void
+    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
     toggleEditMode: () => void
 }
 

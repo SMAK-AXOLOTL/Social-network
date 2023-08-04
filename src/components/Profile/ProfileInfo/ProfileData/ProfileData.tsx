@@ -2,11 +2,11 @@ import s from "../ProfileInfo.module.css";
 import placeholder from "../../../../assets/images/user_image_placeholder.png";
 import ProfileStatus from "../ProfileStatus/ProfileStatus";
 import React from "react";
-import {profileType} from "../../../../types/types";
+import {ProfileType} from "../../../../types/types";
 
 type PropsType = {
     isOwner: boolean
-    profile: profileType
+    profile: ProfileType
     status: string
 
     updateStatus: (status: string) => void

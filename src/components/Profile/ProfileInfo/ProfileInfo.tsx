@@ -1,19 +1,19 @@
 import React, {useState} from "react";
 import Preloader from "../../Common/Preloader/Preloader";
-import {profileType} from "../../../types/types";
+import {ProfileType} from "../../../types/types";
 import ProfileForm from "./ProfileForm/ProfileForm";
 import ProfileData from "./ProfileData/ProfileData";
 
 type PropsType = {
     isOwner: boolean
     userId?: number
-    profile: profileType
+    profile: ProfileType
     status: string
 
     updateStatus: (status: string) => void
     setStatus?: (status: string) => void
     savePhoto: (photo: File) => void
-    updateProfileData: (profile: profileType, toggleEditMode: Function) => void
+    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
 }
 
 const ProfileInfo: React.FC<PropsType> = (props) => {

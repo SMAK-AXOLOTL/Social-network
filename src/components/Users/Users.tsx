@@ -2,7 +2,7 @@ import React from 'react'
 import s from "./Users.module.css";
 import UserItem from "./UserItem/UserItem";
 import Paginator from "../Common/Paginator/Paginator";
-import {userType} from "../../types/types";
+import {UserType} from "../../types/types";
 
 type PropsType = {
     totalUsers: number
@@ -12,7 +12,7 @@ type PropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     isFollowing: Array<number>
-    users: Array<userType>
+    users: Array<UserType>
 }
 
 const Users: React.FC<PropsType> = ({

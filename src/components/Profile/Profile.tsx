@@ -1,19 +1,19 @@
 import React from "react";
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {profileType} from "../../types/types";
+import {ProfileType} from "../../types/types";
 import AllPosts from "./AllPosts/AllPosts";
 
 type PropsType = {
     isOwner: boolean
     userId: number
-    profile: profileType
+    profile: ProfileType
     status: string
 
     updateStatus: (status: string) => void
     setStatus: (status: string) => void
     savePhoto: (photo: File) => void
-    updateProfileData: (profile: profileType, toggleEditMode: Function) => void
+    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
 }
 const Profile: React.FC<PropsType> = (props) => {
     return (<div className={s.content}>

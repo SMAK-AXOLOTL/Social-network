@@ -4,12 +4,17 @@ import {validateLogin} from "../../utils/Validation";
 import {Checkbox, TextInput} from "../../utils/FormComponents";
 
 type PropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captchaText: string, callback: (arg: string) => void) => void
+    login: (email: string,
+            password: string,
+            rememberMe: boolean,
+            captchaText: string,
+            callback: (arg: string) => void
+    ) => void
     captchaUrl: string | null
 }
 
 const LoginForm: React.FC<PropsType> = (props) => {
-    const [status, changeStatus] = useState('')
+    const [status, changeStatus] = useState<string>('')
 
     return <Formik
         initialValues={{
@@ -23,7 +28,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
             props.login(values.email, values.password, values.rememberMe, values.captchaText, (newStatus) => {
                 changeStatus(newStatus)
             })
-            actions.setFieldValue('password', '')
+            actions.setFieldValue('password', '').then()
         }}>
         <Form>
             <TextInput

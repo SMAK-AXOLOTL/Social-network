@@ -1,6 +1,8 @@
-import {authAPI, ResultCodeEnum, securityAPI} from "../api/api";
+import {ResultCodeEnum} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {appStateType} from "./reduxStore";
+import {authAPI} from "../api/authAPI";
+import {securityAPI} from "../api/securityAPI";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
 const TOGGLE_AUTH_IS_FETCHING = 'auth/TOGGLE_AUTH_IS_FETCHING'

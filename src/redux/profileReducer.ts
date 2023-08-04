@@ -1,7 +1,7 @@
-import {profileAPI} from "../api/api";
 import store, {appStateType} from "./reduxStore";
-import {photosType, profileType} from "../types/types";
+import {PhotosType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
+import {profileAPI} from "../api/profileAPI";
 
 
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
@@ -11,7 +11,7 @@ const UPDATE_PROFILE_SUCCESS = 'profile/UPDATE_PROFILE_SUCCESS'
 
 
 type initialStateType = {
-    profile: profileType
+    profile: ProfileType
     status: string
 }
 let initialState: initialStateType = {
@@ -65,18 +65,18 @@ export const profileReducer = (state = initialState, action: ActionType): initia
 
 type setUserProfileActionType = {
     type: typeof SET_USER_PROFILE
-    payload: profileType
+    payload: ProfileType
 }
-export const setUserProfile = (profile: profileType): setUserProfileActionType => ({
+export const setUserProfile = (profile: ProfileType): setUserProfileActionType => ({
     type: SET_USER_PROFILE,
     payload: profile
 })
 
 type setPhotoSuccessActionType = {
     type: typeof SET_PHOTO_SUCCESS
-    photos: photosType
+    photos: PhotosType
 }
-export const setPhotoSuccess = (photos: photosType): setPhotoSuccessActionType => ({
+export const setPhotoSuccess = (photos: PhotosType): setPhotoSuccessActionType => ({
     type: SET_PHOTO_SUCCESS,
     photos: photos
 })
@@ -85,7 +85,7 @@ type updateProfileSuccessActionType = {
     type: typeof UPDATE_PROFILE_SUCCESS
     payload: {}
 }
-export const updateProfileSuccess = (profile: profileType): updateProfileSuccessActionType => ({
+export const updateProfileSuccess = (profile: ProfileType): updateProfileSuccessActionType => ({
     type: UPDATE_PROFILE_SUCCESS,
     payload: profile
 })
@@ -120,11 +120,11 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
 export const savePhoto = (photo: File): ThunkType => async (dispatch) => {
     let data = await profileAPI.setPhoto(photo)
     if (data.resultCode === 0) {
-        dispatch(setPhotoSuccess(data.data.photos))
+        dispatch(setPhotoSuccess(data.data))
     }
 }
 
-export const updateProfileData = (profile: profileType, toggleEditMode: Function): ThunkType => async (dispatch) => {
+export const updateProfileData = (profile: ProfileType, toggleEditMode: Function): ThunkType => async (dispatch) => {
     let data = await profileAPI.updateProfileData(profile)
     if (data.resultCode === 0) {
         await dispatch(getUserProfile(store.getState().auth.authUserId))

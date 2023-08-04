@@ -1,12 +1,10 @@
 import {connect} from "react-redux";
-import {follow, getUsers,
-    setCurrentPage,
-    unfollow} from "../../redux/usersReducer";
+import {follow, getUsers, unfollow} from "../../redux/usersReducer";
 import React, {useEffect} from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {appStateType} from "../../redux/reduxStore";
-import {userType} from "../../types/types";
+import {UserType} from "../../types/types";
 
 type PropsType = {
     currentPage: number
@@ -14,7 +12,7 @@ type PropsType = {
     isFetching: boolean
     isFollowing: Array<number>
     totalUsers: number
-    users: Array<userType>
+    users: Array<UserType>
 
     setCurrentPage: (pageNumber: number) => void
     follow: (userId: number) => void
@@ -22,12 +20,12 @@ type PropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 const UsersContainer: React.FC<PropsType> = (props) => {
+
     useEffect(() => {
         props.getUsers(props.currentPage, props.pageSize)
     }, [])
 
     const onPageSelectorClick = (selectedPage: number) => {
-        props.setCurrentPage(selectedPage)
         props.getUsers(selectedPage, props.pageSize)
     }
 
@@ -55,6 +53,5 @@ let mapStateToProps = (state: appStateType) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setCurrentPage,
     getUsers
 })(UsersContainer)

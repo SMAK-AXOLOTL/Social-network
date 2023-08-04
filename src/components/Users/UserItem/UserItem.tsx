@@ -2,10 +2,10 @@ import React from "react";
 import s from './UserItem.module.css'
 import user_image from '../../../assets/images/user_image_placeholder.png'
 import {NavLink} from "react-router-dom";
-import {userType} from "../../../types/types";
+import {UserType} from "../../../types/types";
 
 type PropsType = {
-    user: userType
+    user: UserType
     isFollowing: Array<number>
     unfollow: (userId: number) => void
     follow: (userId: number) => void

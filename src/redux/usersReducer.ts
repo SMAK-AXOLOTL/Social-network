@@ -1,4 +1,4 @@
-import {updateObjectInArray} from "../utils/objectHelper";
+import {updateUserInUsersArray} from "../utils/objectHelper";
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
@@ -29,13 +29,13 @@ export const usersReducer = (state = initialState, action: ActionsType): initial
         case "FOLLOW": {
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.payload, "id", {followed: true})
+                users: updateUserInUsersArray(state.users,  "id", action.payload,{followed: true})
             }
         }
         case "UNFOLLOW": {
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.payload, "id", {followed: false})
+                users: updateUserInUsersArray(state.users, "id", action.payload, {followed: false})
             }
         }
         case "SET_USERS": {
@@ -124,10 +124,9 @@ export const getUsers = (currentPage: number = 1,
         }
     }
 
-const _followUnfollowFlow = async (dispatch: Dispatch<ActionsType>,
-                                   userId: number,
-                                   apiMethod: any,
-                                   actionCreator: (id: number) => ActionsType) => {
+const _followUnfollowFlow =
+    async (dispatch: Dispatch<ActionsType>, userId: number, apiMethod: any, actionCreator: (id: number) => ActionsType) => {
+
     dispatch(actions.toggleIsFollowing(true, userId))
     try {
         let data = await apiMethod(userId)

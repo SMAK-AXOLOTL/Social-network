@@ -1,57 +1,16 @@
-import {connect} from "react-redux";
-import {follow, getUsers, unfollow} from "../../redux/usersReducer";
-import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
+import React from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import {appStateType} from "../../redux/reduxStore";
-import {UserType} from "../../types/types";
+import {getIsFetching} from "../../utils/Selectors/UserSelectors";
 
-type PropsType = {
-    currentPage: number
-    pageSize: number
-    isFetching: boolean
-    isFollowing: Array<number>
-    totalUsers: number
-    users: Array<UserType>
-
-    setCurrentPage: (pageNumber: number) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-}
-const UsersContainer: React.FC<PropsType> = (props) => {
-
-    useEffect(() => {
-        props.getUsers(props.currentPage, props.pageSize)
-    }, [])
-
-    const onPageSelectorClick = (selectedPage: number) => {
-        props.getUsers(selectedPage, props.pageSize)
-    }
+const UsersContainer: React.FC = () => {
+    const isFetching = useSelector(getIsFetching)
 
     return <>
-        {props.isFetching
+        {isFetching
             ? <Preloader/>
-            : <Users
-                {...props}
-                onPageSelectorClick={onPageSelectorClick}
-            />}
+            : <Users/>}
     </>
 }
-
-let mapStateToProps = (state: appStateType) => {
-    return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsers: state.usersPage.totalUsers,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        isFollowing: state.usersPage.isFollowing
-    }
-}
-
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    getUsers
-})(UsersContainer)
+export default UsersContainer

@@ -4,20 +4,36 @@ import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import {Form, Formik} from "formik";
 import {TextInput} from "../../utils/FormComponents";
+import {useDispatch, useSelector} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {appStateType} from "../../redux/reduxStore";
+import {AnyAction} from "redux";
 
-type PropsType = {
-    dialogsData: { id: number, name: string }[]
-    messagesData: { id: number, text: string }[]
-    newMessageText: string
+import {getDialogsData, getMessagesData, getNewMessageText} from "../../utils/Selectors/MessagesSelectors";
+import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
+import {useAuthRedirect} from "../../hooks/useAuthRedirect";
+import {getIsAuth} from "../../utils/Selectors/AuthSelectors";
 
-    updateNewMessageText: (text: string) => void
-    addMessage: () => void
-}
 
-const Messages: React.FC<PropsType> = (props) => {
+export const Messages: React.FC = () => {
+    const isAuth = useSelector(getIsAuth)
+    const dialogsData = useSelector(getDialogsData)
+    const messagesData = useSelector(getMessagesData)
+    const newMessageText = useSelector(getNewMessageText)
 
-    const dialogsMapped = props.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
-    const messagesMapped = props.messagesData.map(m => <MessageItem key={m.id} text={m.text}/>)
+    const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
+    const addNewMessage = () => {
+        dispatch(addMessage)
+    }
+    const updateNewMessageTextHere = (newMessageText: string) => {
+        dispatch(updateNewMessageText(newMessageText))
+    }
+
+    //TODO fix this ASAP
+    useAuthRedirect(isAuth)
+
+    const dialogsMapped = dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesMapped = messagesData.map(m => <MessageItem key={m.id} text={m.text}/>)
 
     return (
         <div className={s.dialogs}>
@@ -28,10 +44,10 @@ const Messages: React.FC<PropsType> = (props) => {
                 {messagesMapped}
                 <Formik
                     initialValues={{
-                        newMessageText: props.newMessageText
+                        newMessageText: newMessageText
                     }}
                     onSubmit={(values, actions) => {
-                        props.addMessage()
+                        addNewMessage()
                         actions.setFieldValue('newMessageText', '')
                     }}
                 >
@@ -40,7 +56,7 @@ const Messages: React.FC<PropsType> = (props) => {
                             name={'newMessageText'}
                             placeholder={'Enter message here!'}
                             onBlur={(e:React.FormEvent<HTMLInputElement>) => {
-                                props.updateNewMessageText(e.currentTarget.value)
+                                updateNewMessageTextHere(e.currentTarget.value)
                             }}
                         />
                         <button>Send</button>
@@ -50,5 +66,3 @@ const Messages: React.FC<PropsType> = (props) => {
         </div>
     )
 }
-
-export default Messages

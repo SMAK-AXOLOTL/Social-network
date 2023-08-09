@@ -2,19 +2,18 @@ import React, {useState} from "react";
 import {Form, Formik} from "formik";
 import {validateLogin} from "../../utils/Validation";
 import {Checkbox, TextInput} from "../../utils/FormComponents";
+import {useDispatch, useSelector} from "react-redux";
+import {appStateType} from "../../redux/reduxStore";
+import {login} from "../../redux/authReducer";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
 
-type PropsType = {
-    login: (email: string,
-            password: string,
-            rememberMe: boolean,
-            captchaText: string,
-            callback: (arg: string) => void
-    ) => void
-    captchaUrl: string | null
-}
-
-const LoginForm: React.FC<PropsType> = (props) => {
+const LoginForm: React.FC = () => {
     const [status, changeStatus] = useState<string>('')
+
+    const captchaUrl = useSelector((state: appStateType) => state.auth.captchaUrl)
+
+    const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
 
     return <Formik
         initialValues={{
@@ -25,9 +24,9 @@ const LoginForm: React.FC<PropsType> = (props) => {
         }}
         validate={validateLogin}
         onSubmit={(values, actions) => {
-            props.login(values.email, values.password, values.rememberMe, values.captchaText, (newStatus) => {
+            dispatch(login(values.email, values.password, values.rememberMe, values.captchaText, (newStatus) => {
                 changeStatus(newStatus)
-            })
+            }))
             actions.setFieldValue('password', '').then()
         }}>
         <Form>
@@ -46,8 +45,8 @@ const LoginForm: React.FC<PropsType> = (props) => {
             <Checkbox name='rememberMe'>
                 Remember me?
             </Checkbox>
-            {props.captchaUrl && <div>
-                <img src={props.captchaUrl} alt={"captcha code"}/>
+            {captchaUrl && <div>
+                <img src={captchaUrl} alt={"captcha code"}/>
                 <TextInput
                     label='Captcha - '
                     name='captchaText'

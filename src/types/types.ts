@@ -38,3 +38,7 @@ export type PhotosType = {
     small: string | null
     large: string | null
 }
+export type FilterType = {
+    term: string,
+    onlyShow: boolean | null
+}

@@ -1,5 +1,5 @@
 import {updateUserInUsersArray} from "../utils/objectHelper";
-import {UserType} from "../types/types";
+import {FilterType, UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {appStateType, InferActionsTypes} from "./reduxStore";
@@ -13,7 +13,8 @@ type initialStateType = {
     totalUsers: number
     currentPage: number
     isFetching: boolean
-    isFollowing: Array<number>
+    isFollowing: Array<number>,
+    filter: FilterType
 }
 let initialState: initialStateType = {
     users: [],
@@ -21,7 +22,11 @@ let initialState: initialStateType = {
     totalUsers: 0,
     currentPage: 1,
     isFetching: false,
-    isFollowing: []
+    isFollowing: [],
+    filter: {
+        term: '',
+        onlyShow: null
+    }
 }
 
 export const usersReducer = (state = initialState, action: ActionsType): initialStateType => {
@@ -67,6 +72,12 @@ export const usersReducer = (state = initialState, action: ActionsType): initial
                     : state.isFollowing.filter(id => id !== action.payload.userId)
             }
         }
+        case "SET_FILTER": {
+            return {
+                ...state,
+                filter: action.payload
+            }
+        }
         default: {
             return state
         }
@@ -75,6 +86,10 @@ export const usersReducer = (state = initialState, action: ActionsType): initial
 
 type ActionsType = InferActionsTypes<typeof actions>
 export const actions = {
+    setFilter: (filterObject: FilterType) => ({
+        type: "SET_FILTER",
+        payload: filterObject
+    } as const),
     confirmFollow: (userId: number) => ({
         type: "FOLLOW",
         payload: userId
@@ -108,14 +123,13 @@ export const actions = {
     } as const)
 }
 
-
 type ThunkType = ThunkAction<Promise<void>, appStateType, any, ActionsType>
 export const getUsers = (currentPage: number = 1,
-                         pageSize: number = 5): ThunkType =>
+                         pageSize: number = 5, filter: FilterType): ThunkType =>
     async (dispatch) => {
         dispatch(actions.toggleIsFetching(true))
         try {
-            let data = await usersAPI.getUsers(currentPage, pageSize)
+            let data = await usersAPI.getUsers(currentPage, pageSize, filter)
             dispatch(actions.setCurrentPage(currentPage))
             dispatch(actions.setUsers(data.items))
             dispatch(actions.setTotalUsers(data.totalCount))

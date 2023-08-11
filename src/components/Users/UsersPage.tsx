@@ -4,7 +4,7 @@ import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {getIsFetching} from "../../utils/Selectors/UserSelectors";
 
-const UsersContainer: React.FC = () => {
+export const UsersPage: React.FC = () => {
     const isFetching = useSelector(getIsFetching)
 
     return <>
@@ -13,4 +13,3 @@ const UsersContainer: React.FC = () => {
             : <Users/>}
     </>
 }
-export default UsersContainer

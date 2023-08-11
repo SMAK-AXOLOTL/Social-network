@@ -1,8 +1,10 @@
 import {GetItemsType, instance} from "./api";
-import {UserType} from "../types/types";
+import {FilterType, UserType} from "../types/types";
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetItemsType<UserType> >(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+    getUsers(currentPage: number, pageSize: number, filter: FilterType) {
+        return instance.get<GetItemsType<UserType>>(
+            `users?page=${currentPage}&count=${pageSize}&term=${filter.term}&friend=${filter.onlyShow}`
+        ).then(response => response.data)
     }
 }

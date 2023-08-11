@@ -2,7 +2,6 @@ import React, {lazy, Suspense, useEffect} from "react";
 import './App.css'
 import Navbar from "./components/Navbar/Navbar";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
-import MusicContainer from "./components/Music/MusicContainer";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {connect, Provider} from "react-redux";
@@ -13,11 +12,11 @@ import Users from "./components/Users/Users";
 import Header from "./components/Header/Header";
 import {Login} from "./components/Login/Login";
 import {Messages} from "./components/Messages/Messages";
+import {Music} from "./components/Music/Music";
 
 //TODO make lazy imports and get rid of container components
-/*const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer.tsx"))*/
+/*const UsersPage = React.lazy(() => import("./components/Users/UsersPage.tsx"))*/
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.tsx"))
-/*const MessagesContainer = lazy(() => import('./components/Messages/MessagesContainer'))*/
 
 
 const App = props => {
@@ -40,10 +39,9 @@ const App = props => {
                         <Routes>
                             <Route path='/messages/*' element={<Messages/>}/>
                             <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
-                            <Route path='/music' element={<MusicContainer/>}/>
+                            <Route path='/music' element={<Music/>}/>
                             <Route path='/news' element={<News/>}/>
                             <Route path='/users' element={<Users/>}/>
-                            <Route path='/music' element={<MusicContainer/>}/>
                             <Route path='/settings' element={<Settings/>}/>
 
                             <Route path='/login' element={<Login/>}/>

@@ -70,48 +70,49 @@ const ProfileForm = (props: PropsType) => {
                 </div>
                 <div>
                     <p>Edit your contacts below:</p>
-                    <TextInput
+
+                    <div><TextInput
                         label={"facebook"}
                         name={"contacts.facebook"}
                         type={"text"}
                         placeholder={props.profile.contacts.facebook}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"website"}
                         name={"contacts.website"}
                         type={"text"}
                         placeholder={props.profile.contacts.website}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"vk"}
                         name={"contacts.vk"}
                         type={"text"}
                         placeholder={props.profile.contacts.vk}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"twitter"}
                         name={"contacts.twitter"}
                         type={"text"}
                         placeholder={props.profile.contacts.twitter}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"instagram"}
                         name={"contacts.instagram"}
                         type={"text"}
                         placeholder={props.profile.contacts.instagram}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"youtube"}
                         name={"contacts.youtube"}
                         type={"text"}
                         placeholder={props.profile.contacts.youtube}
-                    />
-                    <TextInput
+                    /></div>
+                    <div><TextInput
                         label={"github"}
                         name={"contacts.github"}
                         type={"text"}
                         placeholder={props.profile.contacts.github}
-                    />
+                    /></div>
                 </div>
             </div>
             <button>Submit changes</button>

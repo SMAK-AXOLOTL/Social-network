@@ -2,7 +2,7 @@ import React from "react";
 import {Form, Formik} from "formik";
 import {SelectInput, TextInput} from "../../utils/FormComponents";
 import {useDispatch, useSelector} from "react-redux";
-import store, {appStateType} from "../../redux/reduxStore";
+import {appStateType} from "../../redux/reduxStore";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {getFilter} from "../../utils/Selectors/UserSelectors";
@@ -43,7 +43,7 @@ export const UsersSearchForm: React.FC = () => {
 
         return (booleanValue === null
                 ? '' as 'Followed' | 'Unfollowed' | ''
-                : (booleanValue === true
+                : (booleanValue
                     ? "Followed" as 'Followed' | 'Unfollowed' | ''
                     : "Unfollowed" as 'Followed' | 'Unfollowed' | '')
         )

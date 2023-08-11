@@ -8,15 +8,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {appStateType} from "../../redux/reduxStore";
 import {AnyAction} from "redux";
-
 import {getDialogsData, getMessagesData, getNewMessageText} from "../../utils/Selectors/MessagesSelectors";
 import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
 import {useAuthRedirect} from "../../hooks/useAuthRedirect";
-import {getIsAuth} from "../../utils/Selectors/AuthSelectors";
 
 
 export const Messages: React.FC = () => {
-    const isAuth = useSelector(getIsAuth)
+    useAuthRedirect()
+
     const dialogsData = useSelector(getDialogsData)
     const messagesData = useSelector(getMessagesData)
     const newMessageText = useSelector(getNewMessageText)
@@ -28,9 +27,6 @@ export const Messages: React.FC = () => {
     const updateNewMessageTextHere = (newMessageText: string) => {
         dispatch(updateNewMessageText(newMessageText))
     }
-
-    //TODO fix this ASAP
-    useAuthRedirect(isAuth)
 
     const dialogsMapped = dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     const messagesMapped = messagesData.map(m => <MessageItem key={m.id} text={m.text}/>)

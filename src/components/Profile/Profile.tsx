@@ -1,28 +1,16 @@
 import React from "react";
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ProfileType} from "../../types/types";
 import AllPosts from "./AllPosts/AllPosts";
+import {useAuthRedirect} from "../../hooks/useAuthRedirect";
 
-type PropsType = {
-    isOwner: boolean
-    userId: number
-    profile: ProfileType
-    status: string
+export const Profile: React.FC = () => {
+    useAuthRedirect()
 
-    updateStatus: (status: string) => void
-    setStatus: (status: string) => void
-    savePhoto: (photo: File) => void
-    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
-}
-const Profile: React.FC<PropsType> = (props) => {
-    return (<div className={s.content}>
-        <ProfileInfo isOwner={props.isOwner} userId={props.userId} profile={props.profile} status={props.status}
-                     updateStatus={props.updateStatus} setStatus={props.setStatus} savePhoto={props.savePhoto}
-                     updateProfileData={props.updateProfileData}
-        />
+    return <div className={s.content}>
+        <ProfileInfo/>
         <AllPosts/>
-    </div>)
+    </div>
 }
 
 export default Profile

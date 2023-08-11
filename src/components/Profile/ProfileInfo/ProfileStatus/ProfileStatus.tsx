@@ -1,15 +1,23 @@
 import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from "react-redux";
+import {getUserStatus} from "../../../../utils/Selectors/ProfileSelectors";
+import {useParams} from "react-router-dom";
+import {ThunkDispatch} from "redux-thunk";
+import {appStateType} from "../../../../redux/reduxStore";
+import {AnyAction} from "redux";
+import {updateStatus} from "../../../../redux/profileReducer";
 
-type PropsType = {
-    isOwner: boolean
-    status: string
-    updateStatus: (status: string) => void
-}
-
-const ProfileStatus: React.FC<PropsType> = ({status, updateStatus, isOwner}) => {
-
+const ProfileStatus: React.FC = () => {
+    const {userId} = useParams()
+    const isOwner = !userId
+    const status = useSelector(getUserStatus)
     let [editMode, setEditMode] = useState(false)
     let [localStatus, setLocalStatus] = useState(status)
+
+    const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
+    const updateStatusData = () => {
+        dispatch(updateStatus(localStatus))
+    }
 
     useEffect(() => {
         setLocalStatus(status)
@@ -23,7 +31,7 @@ const ProfileStatus: React.FC<PropsType> = ({status, updateStatus, isOwner}) => 
 
     const deactiveEditMode = () => {
         setEditMode(false)
-        updateStatus(localStatus)
+        updateStatusData()
     }
 
     const onStatusChange = (e: React.FormEvent<HTMLInputElement>) => {

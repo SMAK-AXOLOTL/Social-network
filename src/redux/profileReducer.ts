@@ -106,9 +106,11 @@ export const setStatus = (text: string): setStatusActionType => ({
 })
 
 type ThunkType = ThunkAction<Promise<void>, appStateType, any, ActionType>
-export const getStatus = (userId: number): ThunkType => async (dispatch) => {
-    let data = await profileAPI.getStatus(userId)
-    dispatch(setStatus(data))
+export const getStatus = (userId: number | null): ThunkType => async (dispatch) => {
+    if (userId){
+        let data = await profileAPI.getStatus(userId)
+        dispatch(setStatus(data))
+    }
 }
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     let response = await profileAPI.updateStatus(status)

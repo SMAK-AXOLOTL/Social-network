@@ -3,41 +3,47 @@ import {validateProfileInfo} from "../../../../utils/Validation";
 import {Checkbox, TextInput} from "../../../../utils/FormComponents";
 import React from "react";
 import {ProfileType} from "../../../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfile} from "../../../../utils/Selectors/ProfileSelectors";
+import {ThunkDispatch} from "redux-thunk";
+import {appStateType} from "../../../../redux/reduxStore";
+import {AnyAction} from "redux";
+import {updateProfileData} from "../../../../redux/profileReducer";
 
 type PropsType = {
-    profile: ProfileType
-
-    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
     toggleEditMode: () => void
 }
+export const ProfileForm: React.FC<PropsType> = (props) => {
+    const profile = useSelector(getProfile)
 
-const ProfileForm = (props: PropsType) => {
+    const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
+    const updateProfileDataDispatcher = (profile: ProfileType, toggleEditMode: Function) => {
+        dispatch(updateProfileData(profile, toggleEditMode))
+    }
     return <Formik initialValues={
         {
-            userId: props.profile.userId,
-            fullName: props.profile.fullName,
-            aboutMe: props.profile.aboutMe,
-            lookingForAJob: props.profile.lookingForAJob,
-            lookingForAJobDescription: props.profile.lookingForAJobDescription,
+            userId: profile.userId,
+            fullName: profile.fullName,
+            aboutMe: profile.aboutMe,
+            lookingForAJob: profile.lookingForAJob,
+            lookingForAJobDescription: profile.lookingForAJobDescription,
             contacts: {
-                facebook: props.profile.contacts.facebook || '',
-                website: props.profile.contacts.website || '',
-                vk: props.profile.contacts.vk || '',
-                twitter: props.profile.contacts.twitter || '',
-                instagram: props.profile.contacts.instagram || '',
-                youtube: props.profile.contacts.youtube || '',
-                github: props.profile.contacts.github || ''
+                facebook: profile.contacts.facebook || '',
+                website: profile.contacts.website || '',
+                vk: profile.contacts.vk || '',
+                twitter: profile.contacts.twitter || '',
+                instagram: profile.contacts.instagram || '',
+                youtube: profile.contacts.youtube || '',
+                github: profile.contacts.github || ''
             },
             photos: {
-                small: props.profile.photos.small,
-                large: props.profile.photos.large
+                small: profile.photos.small,
+                large: profile.photos.large
             }
         }}
                    validate={validateProfileInfo}
                    onSubmit={(values) => {
-                       if (props.updateProfileData) {
-                           props.updateProfileData(values, props.toggleEditMode)
-                       }
+                           updateProfileDataDispatcher(values, props.toggleEditMode)
                    }}>
         <Form>
             <div>
@@ -46,7 +52,7 @@ const ProfileForm = (props: PropsType) => {
                         label={"Whats your full name?* "}
                         name={"fullName"}
                         type={"text"}
-                        placeholder={props.profile.fullName}
+                        placeholder={profile.fullName}
                     />
                 </div>
                 <div>
@@ -54,7 +60,7 @@ const ProfileForm = (props: PropsType) => {
                         label={"Tell us something about you:* "}
                         name={"aboutMe"}
                         type={"text"}
-                        placeholder={props.profile.aboutMe}
+                        placeholder={profile.aboutMe}
                     />
                 </div>
                 <div>
@@ -65,7 +71,7 @@ const ProfileForm = (props: PropsType) => {
                         label={"Enter your desired job description:* "}
                         name={"lookingForAJobDescription"}
                         type={"text"}
-                        placeholder={props.profile.lookingForAJobDescription}
+                        placeholder={profile.lookingForAJobDescription}
                     />
                 </div>
                 <div>
@@ -75,43 +81,43 @@ const ProfileForm = (props: PropsType) => {
                         label={"facebook"}
                         name={"contacts.facebook"}
                         type={"text"}
-                        placeholder={props.profile.contacts.facebook}
+                        placeholder={profile.contacts.facebook}
                     /></div>
                     <div><TextInput
                         label={"website"}
                         name={"contacts.website"}
                         type={"text"}
-                        placeholder={props.profile.contacts.website}
+                        placeholder={profile.contacts.website}
                     /></div>
                     <div><TextInput
                         label={"vk"}
                         name={"contacts.vk"}
                         type={"text"}
-                        placeholder={props.profile.contacts.vk}
+                        placeholder={profile.contacts.vk}
                     /></div>
                     <div><TextInput
                         label={"twitter"}
                         name={"contacts.twitter"}
                         type={"text"}
-                        placeholder={props.profile.contacts.twitter}
+                        placeholder={profile.contacts.twitter}
                     /></div>
                     <div><TextInput
                         label={"instagram"}
                         name={"contacts.instagram"}
                         type={"text"}
-                        placeholder={props.profile.contacts.instagram}
+                        placeholder={profile.contacts.instagram}
                     /></div>
                     <div><TextInput
                         label={"youtube"}
                         name={"contacts.youtube"}
                         type={"text"}
-                        placeholder={props.profile.contacts.youtube}
+                        placeholder={profile.contacts.youtube}
                     /></div>
                     <div><TextInput
                         label={"github"}
                         name={"contacts.github"}
                         type={"text"}
-                        placeholder={props.profile.contacts.github}
+                        placeholder={profile.contacts.github}
                     /></div>
                 </div>
             </div>
@@ -121,4 +127,3 @@ const ProfileForm = (props: PropsType) => {
     </Formik>
 }
 
-export default ProfileForm

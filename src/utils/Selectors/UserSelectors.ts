@@ -12,7 +12,6 @@ export const getTotalUsers = (state: appStateType) => {
 export const getCurrentPage = (state: appStateType) => {
     return state.usersPage.currentPage
 }
-
 export const getIsFetching = (state: appStateType) => {
     return state.usersPage.isFetching
 }

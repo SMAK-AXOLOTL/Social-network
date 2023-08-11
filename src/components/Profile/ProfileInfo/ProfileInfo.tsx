@@ -1,26 +1,51 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Preloader from "../../Common/Preloader/Preloader";
-import {ProfileType} from "../../../types/types";
-import ProfileForm from "./ProfileForm/ProfileForm";
 import ProfileData from "./ProfileData/ProfileData";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getStatus, getUserProfile} from "../../../redux/profileReducer";
+import {ThunkDispatch} from "redux-thunk";
+import store, {appStateType} from "../../../redux/reduxStore";
+import {AnyAction} from "redux";
+import {getAuthUserId} from "../../../utils/Selectors/AuthSelectors";
+import {getProfile} from "../../../utils/Selectors/ProfileSelectors";
+import {ProfileForm} from "./ProfileForm/ProfileForm";
 
-type PropsType = {
-    isOwner: boolean
-    userId?: number
-    profile: ProfileType
-    status: string
+const ProfileInfo: React.FC = () => {
 
-    updateStatus: (status: string) => void
-    setStatus?: (status: string) => void
-    savePhoto: (photo: File) => void
-    updateProfileData: (profile: ProfileType, toggleEditMode: Function) => void
-}
+    const {userId} = useParams()
+    const profile = useSelector(getProfile)
+    const isOwner = !userId
 
-const ProfileInfo: React.FC<PropsType> = (props) => {
+    const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
+
+    const getUserProfileData = () => {
+        if (userId) {
+            dispatch(getUserProfile(Number(userId)))
+        } else {
+            dispatch(getUserProfile(getAuthUserId(store.getState())))
+        }
+
+    }
+    const getStatusData = () => {
+        if (userId) {
+            dispatch(getStatus(Number(userId)))
+        } else {
+            dispatch(getStatus(getAuthUserId(store.getState())))
+        }
+    }
+    useEffect(() => {
+        const fetchData = async () => {
+            getUserProfileData()
+            getStatusData()
+        }
+
+        fetchData()
+    }, [userId])
 
     const [editMode, setEditMode] = useState(false)
 
-    if (!props.profile) {
+    if (!profile) {
         return <Preloader/>
     }
     const toggleEditMode = () => {
@@ -28,15 +53,10 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
     }
 
     return <div>
-        {props.isOwner && !editMode && <button onClick={toggleEditMode}>Edit profile</button>}
-        {props.isOwner && editMode
-            ? <ProfileForm
-                profile={props.profile}
-                updateProfileData={props.updateProfileData}
-                toggleEditMode={toggleEditMode}
-            />
-            : <ProfileData profile={props.profile} isOwner={props.isOwner} status={props.status}
-                           updateStatus={props.updateStatus} savePhoto={props.savePhoto}/>}
+        {isOwner && !editMode && <button onClick={toggleEditMode}>Edit profile</button>}
+        {isOwner && editMode
+            ? <ProfileForm toggleEditMode={toggleEditMode}/>
+            : <ProfileData/>}
     </div>
 }
 export default ProfileInfo

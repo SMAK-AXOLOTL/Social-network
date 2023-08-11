@@ -13,11 +13,10 @@ import Header from "./components/Header/Header";
 import {Login} from "./components/Login/Login";
 import {Messages} from "./components/Messages/Messages";
 import {Music} from "./components/Music/Music";
+import Profile from "./components/Profile/Profile";
 
-//TODO make lazy imports and get rid of container components
+//TODO make lazy imports
 /*const UsersPage = React.lazy(() => import("./components/Users/UsersPage.tsx"))*/
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer.tsx"))
-
 
 const App = props => {
 
@@ -38,7 +37,7 @@ const App = props => {
                     <Suspense fallback={<div><Preloader/></div>}>
                         <Routes>
                             <Route path='/messages/*' element={<Messages/>}/>
-                            <Route path='/profile/:userId?' element={<ProfileContainer/>}/>
+                            <Route path='/profile/:userId?' element={<Profile/>}/>
                             <Route path='/music' element={<Music/>}/>
                             <Route path='/news' element={<News/>}/>
                             <Route path='/users' element={<Users/>}/>

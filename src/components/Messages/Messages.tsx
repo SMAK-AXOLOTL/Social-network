@@ -13,7 +13,7 @@ import {addMessage, updateNewMessageText} from "../../redux/messagesReducer";
 import {useAuthRedirect} from "../../hooks/useAuthRedirect";
 
 
-export const Messages: React.FC = () => {
+const Messages: React.FC = () => {
     useAuthRedirect()
 
     const dialogsData = useSelector(getDialogsData)
@@ -62,3 +62,5 @@ export const Messages: React.FC = () => {
         </div>
     )
 }
+
+export default Messages

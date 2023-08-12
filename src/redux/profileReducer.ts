@@ -55,7 +55,8 @@ export const profileReducer = (state = initialState, action: ActionType): initia
         case SET_PHOTO_SUCCESS:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.photos}
+                // @ts-ignore
+                profile: {...state.profile, photos: {small: action.photos.photos.small, large: action.photos.photos.large}}
             }
         default: {
             return state
@@ -122,6 +123,7 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
 export const savePhoto = (photo: File): ThunkType => async (dispatch) => {
     let data = await profileAPI.setPhoto(photo)
     if (data.resultCode === 0) {
+        debugger
         dispatch(setPhotoSuccess(data.data))
     }
 }

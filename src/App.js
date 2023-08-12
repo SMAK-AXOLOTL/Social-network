@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useEffect} from "react";
+import React, {Suspense, useEffect} from "react";
 import './App.css'
 import Navbar from "./components/Navbar/Navbar";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
@@ -8,15 +8,13 @@ import {connect, Provider} from "react-redux";
 import Preloader from "./components/Common/Preloader/Preloader";
 import store from "./redux/reduxStore";
 import {initializeApp} from "./redux/appReducer";
-import Users from "./components/Users/Users";
 import Header from "./components/Header/Header";
-import {Login} from "./components/Login/Login";
-import {Messages} from "./components/Messages/Messages";
-import {Music} from "./components/Music/Music";
-import Profile from "./components/Profile/Profile";
+import Login from "./components/Login/Login";
 
-//TODO make lazy imports
-/*const UsersPage = React.lazy(() => import("./components/Users/UsersPage.tsx"))*/
+const Users = React.lazy(() => import("./components/Users/Users.tsx"))
+const Music = React.lazy(() => import("./components/Music/Music"))
+const Messages = React.lazy(() => import("./components/Messages/Messages"))
+const Profile = React.lazy(() => import("./components/Profile/Profile"))
 
 const App = props => {
 

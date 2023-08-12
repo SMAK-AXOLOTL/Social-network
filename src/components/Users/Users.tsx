@@ -6,21 +6,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getAllUsers,
     getCurrentPage,
-    getFilter,
+    getFilter, getIsFetching,
     getIsFollowing,
     getPageSize,
     getTotalUsers
 } from "../../utils/Selectors/UserSelectors";
-import {follow, getUsers, unfollow} from "../../redux/usersReducer";
+import {actions, follow, getUsers, unfollow} from "../../redux/usersReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {appStateType} from "../../redux/reduxStore";
 import {useLocation, useNavigate} from "react-router-dom"
-import {UsersSearchForm} from "./UsersSearchForm";
+import {UsersSearchForm} from "./UsersSearchForm/UsersSearchForm";
+import Preloader from "../Common/Preloader/Preloader";
 
 const Users: React.FC = () => {
     const location = useLocation()
 
+    const isFetching = useSelector(getIsFetching)
     const totalUsers = useSelector(getTotalUsers)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
@@ -41,7 +43,6 @@ const Users: React.FC = () => {
     }
 
     useEffect(() => {
-        //TODO fix filter drops after posting links & filter drops if page was selected
         const search = new URLSearchParams(location.search)
         const searchedTerm = search.get('term')
         const searchedFollowedFilter = search.get('friend')
@@ -58,9 +59,13 @@ const Users: React.FC = () => {
             case 'false':
                 displayedFilter = {...displayedFilter, onlyShow: false}
                 break
-            default:
+            case '':
                 displayedFilter = {...displayedFilter, onlyShow: null}
+                break
         }
+
+        dispatch(actions.setFilter(displayedFilter))
+        dispatch(actions.setCurrentPage(displayedPage))
         dispatch(getUsers(displayedPage, pageSize, displayedFilter))
     }, [])
 
@@ -76,8 +81,9 @@ const Users: React.FC = () => {
         dispatch(getUsers(currentPage, pageSize, filter))
     }, [filter, currentPage])
 
-
-    return <div className={s.box}>
+    return (isFetching
+        ? <Preloader/>
+        : <div className={s.box}>
         <div>Showing {totalUsers} existing users matching your search parameters!</div>
         <Paginator totalItems={totalUsers} pageSize={pageSize} currentPage={currentPage}
                    onPageSelectorClick={onPageSelectorClick}/>
@@ -94,7 +100,7 @@ const Users: React.FC = () => {
             )
             }
         </div>
-    </div>
+    </div>)
 }
 
 export default Users

@@ -16,8 +16,8 @@ const ProfileData = () => {
     const isOwner = !userId
 
     const dispatch: ThunkDispatch<appStateType, unknown, AnyAction> = useDispatch()
-    //TODO fix photos not loading after changing
-    const savePhotoData = (file: any) => {
+
+    const savePhotoData = (file: File) => {
         dispatch(savePhoto(file))
     }
     const getAllContacts = () => {
@@ -78,7 +78,7 @@ const ProfileData = () => {
         })
     }
     const ProfilePhotoSelected = (e: React.FormEvent<HTMLInputElement>) => {
-        if (e.currentTarget.files && e.currentTarget.files.length && savePhotoData) {
+        if (e.currentTarget.files && e.currentTarget.files.length) {
             savePhotoData(e.currentTarget.files[0])
         }
     }

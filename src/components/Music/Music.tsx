@@ -9,7 +9,7 @@ import {appStateType} from "../../redux/reduxStore";
 import {AnyAction} from "redux";
 
 
-export const Music: React.FC = () => {
+const Music: React.FC = () => {
     const musicData = useSelector(getMusicData)
 
     const dispatch: ThunkDispatch<appStateType, unknown, AnyAction>  = useDispatch()
@@ -30,3 +30,5 @@ export const Music: React.FC = () => {
         </div>
     );
 }
+
+export default Music

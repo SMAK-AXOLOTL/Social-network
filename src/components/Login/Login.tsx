@@ -5,7 +5,7 @@ import {Navigate} from "react-router-dom";
 import LoginForm from "./LoginForm";
 import {appStateType} from "../../redux/reduxStore";
 
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
     const isAuth = useSelector((state: appStateType) => state.auth.isAuth)
 
     if (isAuth) {
@@ -29,4 +29,6 @@ export const Login: React.FC = () => {
                 Password: free</div>
         </div>
     </div>
-};
+}
+
+export default Login

@@ -1,12 +1,20 @@
-.header {
-    grid-area: header;
-    background-color: #FAEEDD;
+.container {
+
+
 }
 
 .logo {
-    width: 20px;
+    width: 4ex;
+    color: #EAE0C8;
+    grid-area: i;
+}
+
+.siteName {
+    color: #EAE0C8;
+    grid-area: n;
 }
 
 .login_block {
-    float: right;
+    float: end;
+
 }

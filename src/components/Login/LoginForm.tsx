@@ -24,10 +24,10 @@ const LoginForm: React.FC = () => {
         }}
         validate={validateLogin}
         onSubmit={(values, actions) => {
+            //wtf?
             dispatch(login(values.email, values.password, values.rememberMe, values.captchaText, (newStatus) => {
                 changeStatus(newStatus)
-            }))
-            actions.setFieldValue('password', '').then()
+            })).catch(actions.setFieldValue('password', '').then)
         }}>
         <Form>
             <TextInput
@@ -41,10 +41,11 @@ const LoginForm: React.FC = () => {
                 name='password'
                 type='password'
                 placeholder='Enter password here'
-            />
+            /><div>
             <Checkbox name='rememberMe'>
                 Remember me?
             </Checkbox>
+        </div>
             {captchaUrl && <div>
                 <img src={captchaUrl} alt={"captcha code"}/>
                 <TextInput
@@ -58,7 +59,7 @@ const LoginForm: React.FC = () => {
                 {status}
             </div>
             <div>
-                <button>Submit</button>
+                <button type={"submit"}>Submit</button>
             </div>
         </Form>
     </Formik>

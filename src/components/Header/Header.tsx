@@ -7,8 +7,9 @@ import {ThunkDispatch} from "redux-thunk";
 import {logout} from "../../redux/authReducer";
 import {appStateType} from "../../redux/reduxStore";
 import {AnyAction} from "redux";
+import {Button} from "antd";
 
-const Header: React.FC = () => {
+const HeaderComponent: React.FC = () => {
     const isAuth = useSelector(getIsAuth)
     const login = useSelector(getLogin)
 
@@ -17,20 +18,23 @@ const Header: React.FC = () => {
         dispatch(logout())
     }
 
-    return <header className={s.header}>
+    return <>
         <img className={s.logo} alt={"header image"}
-             src='https://avatars.mds.yandex.net/get-yapic/58107/IPSvG2CEX560BInBX0Y7xH4Fbn8-1/islands-retina-50'/> Header
+             src='https://avatars.mds.yandex.net/get-yapic/58107/IPSvG2CEX560BInBX0Y7xH4Fbn8-1/islands-retina-50'/>
+        <h2 className={s.siteName}>
+            Social Network
+        </h2>
         <div className={s.login_block}>
             {isAuth
                 ? <div>
                     <div>
-                        {login} - <button onClick={onLogoutClick}>Log out</button>
+                        {login} - <Button onClick={onLogoutClick}>Log out</Button>
                     </div>
                 </div>
                 : <NavLink to={'/login'}>Login</NavLink>
             }
         </div>
-    </header>
+    </>
 }
 
-export default Header
+export default HeaderComponent

@@ -25,8 +25,8 @@ const Login: React.FC = () => {
                 You can test the site with this login information:
             </div>
             <div>Email: free@samuraijs.com
-
-                Password: free</div>
+                Password: free
+            </div>
         </div>
     </div>
 }

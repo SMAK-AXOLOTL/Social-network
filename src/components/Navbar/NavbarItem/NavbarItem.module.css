@@ -4,16 +4,14 @@
     justify-items: self-start;
     display: grid;
     grid-auto-flow: row;
-    justify-content: left;
-}
-
-.item a {
-    color: black;
-    text-decoration: none;
+    font-size: 2ex;
+    align-content: start;
+    align-items: start;
 }
 
 .item img {
-    height: 20px;
+    height: 5ex;
     margin-top: 5px;
     margin-left: 10px;
 }
+

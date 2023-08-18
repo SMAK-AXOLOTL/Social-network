@@ -1,6 +1,7 @@
 import s from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
+import {Icons} from "../../../assets/images/Icons";
 
 type PropsType = {
     id: number
@@ -10,7 +11,7 @@ type PropsType = {
 const DialogItem: React.FC<PropsType> = (props) => {
     return (
         <div className={s.dialog}>
-            <img src='https://i.stack.imgur.com/oNqt6.png?s=128&g=1' alt={"user profile pic"}/>
+            <img src={Icons.UserPlaceholder} alt={"user profile pic"}/>
             <NavLink to={'/messages/' + props.id}>{props.name}</NavLink>
         </div>
     )

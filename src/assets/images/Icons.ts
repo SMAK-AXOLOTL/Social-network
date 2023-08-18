@@ -4,6 +4,7 @@ import MusicIcon from './icons8-musical-notes-96.png'
 import NewsIcon from './icons8-news-96.png'
 import SettingsIcon from './icons8-settings-96.png'
 import UsersIcon from './icons8-users-96.png'
+import UserPlaceholder from './user_image_placeholder.png'
 
 export const Icons = {
     UserIcon: UserIcon,
@@ -11,5 +12,6 @@ export const Icons = {
     MusicIcon: MusicIcon,
     NewsIcon: NewsIcon,
     SettingsIcon: SettingsIcon,
-    UsersIcon: UsersIcon
+    UsersIcon: UsersIcon,
+    UserPlaceholder: UserPlaceholder
 }

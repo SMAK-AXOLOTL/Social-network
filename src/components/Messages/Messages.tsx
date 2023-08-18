@@ -14,7 +14,7 @@ import {useAuthRedirect} from "../../hooks/useAuthRedirect";
 
 
 const Messages: React.FC = () => {
-    useAuthRedirect()
+    /*useAuthRedirect()*/
 
     const dialogsData = useSelector(getDialogsData)
     const messagesData = useSelector(getMessagesData)
@@ -37,27 +37,33 @@ const Messages: React.FC = () => {
                 {dialogsMapped}
             </div>
             <div className={s.messages}>
-                {messagesMapped}
-                <Formik
-                    initialValues={{
-                        newMessageText: newMessageText
-                    }}
-                    onSubmit={(values, actions) => {
-                        addNewMessage()
-                        actions.setFieldValue('newMessageText', '')
-                    }}
-                >
-                    <Form>
-                        <TextInput
-                            name={'newMessageText'}
-                            placeholder={'Enter message here!'}
-                            onBlur={(e:React.FormEvent<HTMLInputElement>) => {
-                                updateNewMessageTextHere(e.currentTarget.value)
-                            }}
-                        />
-                        <button>Send</button>
-                    </Form>
-                </Formik>
+                <div style={{height: '200', overflowY: "scroll"}}>
+                    {messagesMapped}
+                </div>
+                <div>
+                    <Formik
+                        initialValues={{
+                            newMessageText: newMessageText
+                        }}
+                        onSubmit={(values, actions) => {
+                            addNewMessage()
+                            actions.setFieldValue('newMessageText', '')
+                        }}
+                    >
+                        <Form>
+                            <div>
+                                <TextInput
+                                    name={'newMessageText'}
+                                    placeholder={'Enter message here!'}
+                                    onBlur={(e:React.FormEvent<HTMLInputElement>) => {
+                                        updateNewMessageTextHere(e.currentTarget.value)
+                                    }}
+                                />
+                                <button type={"submit"}>Send</button>
+                            </div>
+                        </Form>
+                    </Formik>
+                </div>
             </div>
         </div>
     )

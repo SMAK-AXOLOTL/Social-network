@@ -10,14 +10,11 @@ import {initializeApp} from "./redux/appReducer";
 import Login from "./components/Login/Login";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
-import {Breadcrumb, Layout, Menu, theme} from "antd";
-import NavbarItem from "./components/Navbar/NavbarItem/NavbarItem";
+import {Breadcrumb, Layout, theme} from "antd";
 import HeaderComponent from "./components/Header/Header";
-import {Icons} from './assets/images/Icons'
-
+import {NavBar} from "./components/Navbar/NavBar";
+import {ChatPage} from "./components/ChatPage/ChatPage";
 const {Header, Content, Sider} = Layout;
-
-
 const Users = React.lazy(() => import("./components/Users/Users"))
 const Music = React.lazy(() => import("./components/Music/Music"))
 const Messages = React.lazy(() => import("./components/Messages/Messages"))
@@ -44,25 +41,13 @@ const App: React.FC = () => {
                 </Header>
                 <Layout>
                     <Sider width={200} style={{background: colorBgContainer}}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{height: '100%', borderRight: 0}}
-                        >
-                            <NavbarItem address='profile/' itemName='Profile' icon={Icons.UserIcon}/>
-                            <NavbarItem address='messages' itemName='Messages' icon={Icons.MessagesIcon}/>
-                            <NavbarItem address='news' itemName='News' icon={Icons.NewsIcon}/>
-                            <NavbarItem address='music' itemName='Music' icon={Icons.MusicIcon}/>
-                            <NavbarItem address='users' itemName='Users' icon={Icons.UsersIcon}/>
-                            <NavbarItem address='settings' itemName='Settings' icon={Icons.SettingsIcon}/>
-                        </Menu>
+                            <NavBar/>
                     </Sider>
                     <Layout style={{padding: '0 24px 24px'}}>
                         <Breadcrumb style={{margin: '16px 0'}}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
+                            <Breadcrumb.Item>Social Network</Breadcrumb.Item>
+                            <Breadcrumb.Item>Profile</Breadcrumb.Item>
+                            <Breadcrumb.Item>You</Breadcrumb.Item>
                         </Breadcrumb>
                         <Content
                             style={{
@@ -81,6 +66,7 @@ const App: React.FC = () => {
                                     <Route path='/users' element={<Users/>}/>
                                     <Route path='/settings' element={<Settings/>}/>
                                     <Route path='/login' element={<Login/>}/>
+                                    <Route path='/chat' element={<ChatPage/>}/>
 
                                     <Route path='' element={<Navigate to={"/profile/"}/>}/>
                                 </Routes>

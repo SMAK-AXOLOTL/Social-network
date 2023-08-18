@@ -1,14 +1,5 @@
-.nav {
-
-}
-
-.nav :hover {
-    background-color: #EAE0C8;
-}
-
 .navBar{
     grid-area: nav;
-    background-color: #FAEEDD;
 
 }
 

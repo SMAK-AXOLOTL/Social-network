@@ -24,7 +24,7 @@ const initialState: InitialStateType = {
         {id: 3, text: "Whatcha doin'?"},
         {id: 4, text: 'Ayo'},
         {id: 5, text: 'Chop-Chop'},
-        {id: 6, text: 'Bath in holy flames'},
+        {id: 6, text: 'Bath in holy flames'}
     ]
 }
 
